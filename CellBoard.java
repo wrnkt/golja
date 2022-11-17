@@ -1,9 +1,12 @@
 import java.util.Arrays;
+import java.lang.Math;
 
 public class CellBoard
 {
     private static final int MAX_ROWS = 20;
     private static final int MAX_COLS = 30;
+
+    private static int tickLength = 4;
 
     private Cell[][] board = new Cell[MAX_ROWS][MAX_COLS];
 
@@ -31,18 +34,25 @@ public class CellBoard
         }
     }
 
+    public static Cell[][] randomBoard(int maxRows, int maxCols)
+    {
+        Cell[][] randomBoard = new Cell[maxRows][maxCols];
+
+        for(int c = 0; c < maxCols; c++)
+        {
+            for(int r = 0; r < maxRows; r++)
+            {
+                State state = Math.random() > 0.5 ? State.ALIVE : State.DEAD;
+                randomBoard[r][c] = new Cell(state);
+            }
+        }
+
+        return randomBoard;
+    }
+
     public static void main(String[] args)
     {
-        Cell[][] defaultBoard = new Cell[MAX_ROWS][MAX_COLS];
-        int i = 0;
-        for (Cell[] row : defaultBoard)
-        {
-            if(i % 3 == 0)
-                Arrays.fill(row, new Cell(State.DEAD));
-            else
-                Arrays.fill(row, new Cell(State.ALIVE));
-            i++;
-        }
+        Cell[][] defaultBoard = randomBoard(MAX_ROWS, MAX_COLS);
 
         CellBoard board = new CellBoard(defaultBoard);
 
