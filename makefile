@@ -5,13 +5,16 @@ JFLAGS = -Wall
 
 CLASSDIR = classes
 
-default: Cell.class
+default: CellBoard.class
+
+CellBoard.class: CellBoard.java
+	$(JC) $(JCFLAGS) -d $(CLASSDIR) CellBoard.java
 
 Cell.class: Cell.java
 	$(JC) $(JCFLAGS) -d $(CLASSDIR) Cell.java
 
 run:
-	java -cp $(CLASSDIR) Cell
+	java -cp $(CLASSDIR) CellBoard
 
 clean:
 	$(RM) $(CLASSDIR)/*.class

@@ -3,13 +3,28 @@ enum State
     ALIVE, DEAD;
 }
 
-class Cell
+public class Cell
 {
-    private State cellState = State.DEAD;
+    private State cellState;
 
-    public State cellState()
+    public Cell()
+    {
+        cellState = State.DEAD;
+    }
+
+    public Cell(State state)
+    {
+        cellState = state;
+    }
+
+    private State cellState()
     {
         return cellState;
+    }
+
+    public boolean isAlive()
+    {
+        return cellState() == State.ALIVE ? true : false;
     }
 
     public static void main(String[] args)
