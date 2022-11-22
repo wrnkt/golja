@@ -7,6 +7,10 @@ CLASSDIR = classes
 
 default: CellBoard.class
 
+rebuild:
+	make clean
+	make
+
 CellBoard.class: CellBoard.java
 	$(JC) $(JCFLAGS) -d $(CLASSDIR) CellBoard.java
 
