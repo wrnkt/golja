@@ -17,19 +17,22 @@ public class Cell
         cellState = state;
     }
 
-    private State cellState()
+    private State getCellState()
     {
         return cellState;
+    }
+    public void setCellState()
+    {
     }
 
     public boolean isAlive()
     {
-        return cellState() == State.ALIVE ? true : false;
+        return getCellState() == State.ALIVE ? true : false;
     }
 
     public static void main(String[] args)
     {
         Cell c = new Cell();
-        System.out.println(c.cellState());
+        System.out.println(c.getCellState());
     }
 }
