@@ -1,5 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Math;
+
+import java.lang.Thread;
 
 public class CellBoard
 {
@@ -10,8 +13,8 @@ public class CellBoard
 
     private Cell[][] board = new Cell[MAX_ROWS][MAX_COLS];
 
-    private char aliveChar = 'x';
-    private char deadChar = '.';
+    private static char aliveChar = 'x';
+    private static char deadChar = '.';
 
 
     public CellBoard(Cell[][] cellArray)
@@ -19,7 +22,7 @@ public class CellBoard
         board = cellArray;
     }
 
-    public void printBoard()
+    public static void printBoard(Cell[][] board)
     {
         for(Cell[] row : board)
         {
@@ -34,6 +37,42 @@ public class CellBoard
         }
     }
 
+    public static void printFrames(ArrayList<Cell[][]> frames)
+    {
+        int frameCount = 0;
+        for(Cell[][] frame : frames)
+        {
+            clearTerm();
+            System.out.println(String.format("Frame %d", frameCount));
+            printBoard(frame);
+            frameCount++;
+
+            try
+            {
+                Thread.sleep(100);
+            }
+            catch(InterruptedException e)
+            {
+                System.out.println(
+                        String.format(
+                            "[ERROR]: Failed to print frames.`"
+                            ));
+            }
+        }
+    }
+
+    public static ArrayList<Cell[][]> createRandomizedFrameList(int length)
+    {
+        ArrayList<Cell[][]> frameList = new ArrayList<>();
+
+        for(int i = 0; i < length; i++)
+        {
+            frameList.add(randomBoard(MAX_ROWS, MAX_COLS));
+        }
+
+        return frameList;
+    }
+
     public static Cell[][] randomBoard(int maxRows, int maxCols)
     {
         Cell[][] randomBoard = new Cell[maxRows][maxCols];
@@ -42,7 +81,7 @@ public class CellBoard
         {
             for(int r = 0; r < maxRows; r++)
             {
-                State state = Math.random() > 0.5 ? State.ALIVE : State.DEAD;
+                State state = Math.random() > 0.8 ? State.ALIVE : State.DEAD;
                 randomBoard[r][c] = new Cell(state);
             }
         }
@@ -50,12 +89,15 @@ public class CellBoard
         return randomBoard;
     }
 
+    public static void clearTerm()
+    {
+        System.out.print("\033[H\033[2J");
+    }
+
     public static void main(String[] args)
     {
-        Cell[][] defaultBoard = randomBoard(MAX_ROWS, MAX_COLS);
+        ArrayList<Cell[][]> randomFrames1 = createRandomizedFrameList(100);
+        printFrames(randomFrames1);
 
-        CellBoard board = new CellBoard(defaultBoard);
-
-        board.printBoard();
     }
 }
