@@ -1,8 +1,12 @@
+import java.util.function.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Math;
 
 import java.lang.Thread;
+
+// TODO: change Cell[][] to Cell[]. represent board with 1D array for efficiency
+// and easier access.
 
 public class CellBoard
 {
@@ -77,16 +81,40 @@ public class CellBoard
     {
         Cell[][] randomBoard = new Cell[maxRows][maxCols];
 
+        BooleanSupplier lifeChance = () -> Math.random() > 0.8;
+
         for(int c = 0; c < maxCols; c++)
         {
             for(int r = 0; r < maxRows; r++)
             {
-                State state = Math.random() > 0.8 ? State.ALIVE : State.DEAD;
+                State state = lifeChance.getAsBoolean() ?
+                    State.ALIVE :
+                    State.DEAD;
+
                 randomBoard[r][c] = new Cell(state);
             }
         }
 
         return randomBoard;
+    }
+    
+    /**
+     * Apply rules to current state and create the next generation.
+     *
+     */
+    public static Cell[][] applyRulesConstructNextFrame(Cell [][] frame)
+    {
+        // TODO: implement getNextFrame
+        Cell[][] nextFrame = new Cell[MAX_ROWS][MAX_COLS];
+
+        return nextFrame;
+    }
+
+    public static int getNeighbors(int x, int y, Cell[][] frame)
+    {
+        //TODO: implement getNeighbors
+        
+        return 0;
     }
 
     public static void clearTerm()
