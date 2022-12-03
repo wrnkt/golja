@@ -5,8 +5,8 @@ public class BoardManager
 {
     static int aliveCells = 0;
 
-    private static final int MAX_ROWS = 40;
-    private static final int MAX_COLS = 140;
+    private static final int DEFAULT_ROWS = 40;
+    private static final int DEFAULT_COLS = 140;
 
     private static char aliveChar = 'x';
     private static char deadChar = '.';
@@ -60,22 +60,18 @@ public class BoardManager
         {
             for(int c = (col - 1); c <= (col + 1); c++)
             {
-                // System.out.println(String.format("(%d, %d)",c, r));
                 if(r >= 0 && r < board[0].length &&
-                   c >= 0 && c < board.length)
+                   c >= 0 && c < board.length &&
+                   !(col == c && row == r)
+                   )
                 {
-                    if(!(col == c && row == r))
+                    if(board[c][r].isAlive())
                     {
-                        // System.out.println(String.format("%s at (%d, %d)", board[c][r], c, r));
-                        if(board[c][r].isAlive())
-                        {
-                            neighborCount++;
-                        }
+                        neighborCount++;
                     }
                 }
             }
         }
-        // System.out.println(neighborCount);
         return neighborCount;
     }
 
@@ -175,9 +171,9 @@ public class BoardManager
 
     public static void main(String[] args)
     {
-        Cell[][] emptyBoard = new Cell[MAX_COLS][MAX_ROWS];
+        Cell[][] emptyBoard = new Cell[DEFAULT_COLS][DEFAULT_ROWS];
 
-        Cell[][] testBoard = randomBoard(MAX_COLS, MAX_ROWS, DEFAULT_LIFE_CHANCE);
+        Cell[][] testBoard = randomBoard(DEFAULT_COLS, DEFAULT_ROWS, DEFAULT_LIFE_CHANCE);
 
         try {
             animateBoard(testBoard, defaultRule, 90, 2000);
