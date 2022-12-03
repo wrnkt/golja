@@ -5,6 +5,8 @@ import java.lang.StringBuilder;
 
 public class BoardLoader
 {
+    public static char[] aliveChars = {'1','x'};
+
     public static Cell[][] loadFromFile(Path path) throws IOException
     {
         int rows = 0;
@@ -37,10 +39,10 @@ public class BoardLoader
                 {
                     for(int col = 0; col < board.length; col++)
                     {
-                        if(fileContent.charAt(location) == '1')
-                            board[col][row] = new Cell(State.ALIVE);
-                        else
+                        if(new String(aliveChars).indexOf(fileContent.charAt(location)) == -1)
                             board[col][row] = new Cell(State.DEAD);
+                        else
+                            board[col][row] = new Cell(State.ALIVE);
 
                         location++;
                     }
