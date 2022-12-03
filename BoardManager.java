@@ -77,14 +77,14 @@ public class BoardManager
         return neighborCount;
     }
 
-    public static Cell[][] randomBoard(int maxCols, int maxRows)
+    public static Cell[][] randomBoard(int columns, int rows)
     {
-        Cell[][] randomBoard = new Cell[maxCols][maxRows];
+        Cell[][] randomBoard = new Cell[columns][rows];
         BooleanSupplier lifeChance = () -> Math.random() > 0.7;
 
-        for(int r = 0; r < maxRows; r++)
+        for(int r = 0; r < rows; r++)
         {
-            for(int c = 0; c < maxCols; c++)
+            for(int c = 0; c < columns; c++)
             {
                 State state = lifeChance.getAsBoolean() ?
                     State.ALIVE :
@@ -96,13 +96,13 @@ public class BoardManager
         return randomBoard;
     }
 
-    public static Cell[][] deadBoard(int maxCols, int maxRows)
+    public static Cell[][] deadBoard(int columns, int rows)
     {
-        Cell[][] deadBoard = new Cell[maxCols][maxRows];
+        Cell[][] deadBoard = new Cell[columns][rows];
 
-        for(int r = 0; r < maxRows; r++)
+        for(int r = 0; r < rows; r++)
         {
-            for(int c = 0; c < maxCols; c++)
+            for(int c = 0; c < columns; c++)
             {
                 deadBoard[c][r] = new Cell(State.DEAD);
             }
