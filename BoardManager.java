@@ -8,12 +8,15 @@ public class BoardManager
     private static final int DEFAULT_ROWS = 40;
     private static final int DEFAULT_COLS = 140;
 
+    private static final int DEFAULT_MAX_GENERATIONS = 1000;
+    private static final int DEFAULT_MS_DELAY = 90;
+
     private static char aliveChar = 'x';
     private static char deadChar = '.';
 
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
-    static Appliable defaultRule = (c, r, b) -> {
+    static Appliable DEFAULT_RULE = (c, r, b) -> {
         int aliveNeighbors = countAliveNeighbors(c, r, b);
         if(b[c][r].isAlive())
         {
@@ -132,20 +135,24 @@ public class BoardManager
         System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
     }
 
-    public static void animateBoard(Cell[][] board, int msDelay, int maxGenerations) throws InterruptedException
+    public static void animateBoard(Cell[][] board) throws InterruptedException
     {
-        int generation = 0;
-        Cell[][] currentBoard = board;
+        animateBoard(board, DEFAULT_RULE, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
+    }
 
-        while(generation < maxGenerations)
-        {
-            clearTerm();
-            printBoard(currentBoard);
-            System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
-            currentBoard = constructNextFrame(currentBoard, defaultRule);
-            generation++;
-            Thread.sleep(msDelay);
-        }
+    public static void animateBoard(Cell[][] board, Appliable rule) throws InterruptedException
+    {
+        animateBoard(board, rule, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
+    }
+
+    public static void animateBoard(Cell[][] board, int msDelay) throws InterruptedException
+    {
+        animateBoard(board, DEFAULT_RULE, msDelay, DEFAULT_MAX_GENERATIONS);
+    }
+
+    public static void animateBoard(Cell[][] board, Appliable rule, int msDelay) throws InterruptedException
+    {
+        animateBoard(board, rule, msDelay, DEFAULT_MAX_GENERATIONS);
     }
 
     public static void animateBoard(Cell[][] board, Appliable rule, int msDelay, int maxGenerations) throws InterruptedException
@@ -176,7 +183,7 @@ public class BoardManager
         Cell[][] testBoard = randomBoard(DEFAULT_COLS, DEFAULT_ROWS, DEFAULT_LIFE_CHANCE);
 
         try {
-            animateBoard(testBoard, defaultRule, 90, 2000);
+            animateBoard(testBoard);
         } catch(InterruptedException e) {
             System.out.println("[LOG]: Board print failed.");
         }
