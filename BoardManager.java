@@ -97,20 +97,4 @@ public class BoardManager
         }
         return deadBoard;
     }
-
-    public static void main(String[] args)
-    {
-        /*
-        Cell[][] emptyBoard = new Cell[DEFAULT_COLS][DEFAULT_ROWS];
-
-        Cell[][] testBoard = randomBoard(DEFAULT_COLS, DEFAULT_ROWS, DEFAULT_LIFE_CHANCE);
-
-        try {
-            animateBoard(testBoard);
-        } catch(InterruptedException e) {
-            System.out.println("[LOG]: Board print failed.");
-        }
-        */
-        
-    }
 }
