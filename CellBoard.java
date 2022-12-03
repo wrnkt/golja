@@ -110,22 +110,22 @@ public class CellBoard
         return nextFrame;
     }
 
-    public static int getNeighborAliveCount(int x, int y, Cell[][] frame)
+    public static int countAliveNeighbors(int col, int row, Cell[][] frame)
     {
         int neighborCount = 0;
 
-        for(int i = (x - 1); i <= (x + 1); i++)
+        for(int i = (col - 1); i <= (col + 1); i++)
         {
-            for(int j = (y - 1); j <= (y + 1); j++)
+            for(int j = (row - 1); j <= (row + 1); j++)
             {
                 // System.out.println(String.format("(%d, %d)",i, j));
-                System.out.println(String.format("%s at (%d, %d)", frame[i][j], i, j));
-                if(i > 0 && i < frame[0].length)
+                if(i >= 0 && i < frame[0].length)
                 {
-                    if(j > 0 && j < frame.length)
+                    if(j >= 0 && j < frame.length)
                     {
-                        if(x != i && y != j)
+                        if(!(col == i && row == j))
                         {
+                            System.out.println(String.format("%s at (%d, %d)", frame[i][j], j, i));
                             if(frame[i][j].isAlive())
                             {
                                 neighborCount++;
@@ -152,6 +152,6 @@ public class CellBoard
 
         Cell[][] test = randomBoard(MAX_COLS, MAX_ROWS);
         printBoard(test);
-        getNeighborAliveCount(1, 1, test);
+        countAliveNeighbors(1, 1, test);
     }
 }
