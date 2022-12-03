@@ -130,6 +130,11 @@ public class BoardManager
         }
     }
 
+    public static void printBoardInfo(Cell[][] board)
+    {
+        System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
+    }
+
     public static void animateBoard(Cell[][] board, int msDelay, int maxGenerations) throws InterruptedException
     {
         int generation = 0;
@@ -155,7 +160,7 @@ public class BoardManager
         {
             clearTerm();
             printBoard(currentBoard);
-            System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
+            printBoardInfo(board);
             currentBoard = constructNextFrame(currentBoard, rule);
             generation++;
             Thread.sleep(msDelay);
