@@ -29,7 +29,7 @@ public class BoardManager
         }
     };
 
-    public static Cell[][] constructNextFrame(Cell[][] originalBoard)
+    public static Cell[][] constructNextFrame(Cell[][] originalBoard, Appliable rule)
     {
         int numRows = originalBoard[0].length;
         int numColumns = originalBoard.length;;
@@ -40,7 +40,7 @@ public class BoardManager
         {
             for(int col = 0; col < numColumns; col++)
             {
-                nextBoard[col][row] = defaultRule.apply(col, row, originalBoard) ?
+                nextBoard[col][row] = rule.apply(col, row, originalBoard) ?
                     new Cell(State.ALIVE) : new Cell(State.DEAD);
             }
         }
@@ -140,7 +140,7 @@ public class BoardManager
             clearTerm();
             printBoard(currentBoard);
             System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
-            currentBoard = constructNextFrame(currentBoard);
+            currentBoard = constructNextFrame(currentBoard, defaultRule);
             generation++;
             Thread.sleep(msDelay);
         }
