@@ -36,9 +36,9 @@ public class BoardManager
 
         Cell[][] nextBoard = new Cell[numColumns][numRows];
 
-        for(int row = 0; row < originalBoard[0].length; row++)
+        for(int row = 0; row < numRows; row++)
         {
-            for(int col = 0; col < originalBoard.length; col++)
+            for(int col = 0; col < numColumns; col++)
             {
                 nextBoard[col][row] = defaultRule.apply(col, row, originalBoard) ?
                     new Cell(State.ALIVE) : new Cell(State.DEAD);
@@ -59,17 +59,15 @@ public class BoardManager
             for(int c = (col - 1); c <= (col + 1); c++)
             {
                 // System.out.println(String.format("(%d, %d)",c, r));
-                if(r >= 0 && r < board[0].length)
+                if(r >= 0 && r < board[0].length &&
+                   c >= 0 && c < board.length)
                 {
-                    if(c >= 0 && c < board.length)
+                    if(!(col == c && row == r))
                     {
-                        if(!(col == c && row == r))
+                        // System.out.println(String.format("%s at (%d, %d)", board[c][r], c, r));
+                        if(board[c][r].isAlive())
                         {
-                            // System.out.println(String.format("%s at (%d, %d)", board[c][r], c, r));
-                            if(board[c][r].isAlive())
-                            {
-                                neighborCount++;
-                            }
+                            neighborCount++;
                         }
                     }
                 }
