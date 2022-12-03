@@ -30,6 +30,11 @@ public class Cell
         return getCellState() == State.ALIVE ? true : false;
     }
 
+    public String toString()
+    {
+        return getCellState().name();
+    }
+
     public static void main(String[] args)
     {
         Cell c = new Cell();
