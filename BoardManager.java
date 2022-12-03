@@ -143,6 +143,11 @@ public class BoardManager
         }
     }
 
+    public static void printBoardInfo(Cell[][] board)
+    {
+        System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
+    }
+
     public static void animateBoard(Cell[][] board, int msDelay, int maxGenerations) throws InterruptedException
     {
         int generation = 0;
@@ -153,7 +158,27 @@ public class BoardManager
             clearTerm();
             printBoard(currentBoard);
             System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
+<<<<<<< Updated upstream
             currentBoard = constructNextFrame(currentBoard);
+=======
+            currentBoard = constructNextFrame(currentBoard, defaultRule);
+            generation++;
+            Thread.sleep(msDelay);
+        }
+    }
+
+    public static void animateBoard(Cell[][] board, Appliable rule, int msDelay, int maxGenerations) throws InterruptedException
+    {
+        int generation = 0;
+        Cell[][] currentBoard = board;
+
+        while(generation < maxGenerations)
+        {
+            clearTerm();
+            printBoard(currentBoard);
+            printBoardInfo(board);
+            currentBoard = constructNextFrame(currentBoard, rule);
+>>>>>>> Stashed changes
             generation++;
             Thread.sleep(msDelay);
         }
