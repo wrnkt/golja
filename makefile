@@ -27,7 +27,7 @@ Cell.class: Cell.java
 	$(JC) $(JCFLAGS) -d $(CLASSDIR) Cell.java
 
 run:
-	java -cp $(CLASSDIR) BoardPrinter
+	java -cp $(CLASSDIR) BoardLoader
 
 clean:
 	$(RM) $(CLASSDIR)/*.class

@@ -58,9 +58,15 @@ public class BoardLoader
 
     public static void main(String[] args) {
         try {
-            Cell[][] test = loadFromFile(Path.of("boards", "testboard.txt"));
-            BoardPrinter.printBoard(test);
+            Cell[][] test = loadFromFile(Path.of("boards", "gosperglidergun2.txt"));
+            // BoardPrinter.printBoard(test);
+            try {
+                BoardPrinter.animateBoard(test);
+
+            } catch(Exception e) {
+            }
         } catch(IOException e) {
+            System.out.println("Couldn't load from path.");
         }
     }
 }
