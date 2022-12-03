@@ -146,6 +146,22 @@ public class BoardManager
         }
     }
 
+    public static void animateBoard(Cell[][] board, Appliable rule, int msDelay, int maxGenerations) throws InterruptedException
+    {
+        int generation = 0;
+        Cell[][] currentBoard = board;
+
+        while(generation < maxGenerations)
+        {
+            clearTerm();
+            printBoard(currentBoard);
+            System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
+            currentBoard = constructNextFrame(currentBoard, rule);
+            generation++;
+            Thread.sleep(msDelay);
+        }
+    }
+
     public static void clearTerm()
     {
         System.out.print("\033[H\033[2J");
@@ -158,7 +174,7 @@ public class BoardManager
         Cell[][] testBoard = randomBoard(MAX_COLS, MAX_ROWS);
 
         try {
-            animateBoard(testBoard, 90, 2000);
+            animateBoard(testBoard, defaultRule, 90, 2000);
         } catch(InterruptedException e) {
             System.out.println("[LOG]: Board print failed.");
         }
