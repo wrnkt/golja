@@ -5,20 +5,20 @@ JFLAGS = -Wall
 
 CLASSDIR = classes
 
-default: CellBoard.class
+default: BoardManager.class
 
 rebuild:
 	make clean
 	make
 
-CellBoard.class: CellBoard.java
-	$(JC) $(JCFLAGS) -d $(CLASSDIR) CellBoard.java
+BoardManager.class: BoardManager.java
+	$(JC) $(JCFLAGS) -d $(CLASSDIR) BoardManager.java
 
 Cell.class: Cell.java
 	$(JC) $(JCFLAGS) -d $(CLASSDIR) Cell.java
 
 run:
-	java -cp $(CLASSDIR) CellBoard
+	java -cp $(CLASSDIR) BoardManager
 
 clean:
 	$(RM) $(CLASSDIR)/*.class
