@@ -21,6 +21,7 @@ public class Cell
     {
         return cellState;
     }
+
     public void setCellState()
     {
     }
@@ -33,11 +34,5 @@ public class Cell
     public String toString()
     {
         return getCellState().name();
-    }
-
-    public static void main(String[] args)
-    {
-        Cell c = new Cell();
-        System.out.println(c.getCellState());
     }
 }
