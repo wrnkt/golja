@@ -3,6 +3,8 @@ import java.lang.Thread;
 
 public class BoardManager
 {
+    static int aliveCells = 0;
+
     private static final int MAX_ROWS = 40;
     private static final int MAX_COLS = 140;
 
@@ -28,22 +30,6 @@ public class BoardManager
         int numRows = originalBoard[0].length;
         int numColumns = originalBoard.length;;
         boolean[][] nextGenerationRef = new boolean[numColumns][numRows];
-
-        /*
-        System.out.println("passed board values:");
-        System.out.println(
-                String.format(
-                    "rows:%d\ncolumns:%d\n",
-                    originalBoard[0].length,
-                    originalBoard.length));
-
-        System.out.println("reference array values:");
-        System.out.println(
-                String.format(
-                    "rows:%d\ncolumns:%d\n",
-                    nextGenerationRef[0].length,
-                    nextGenerationRef.length));
-        */
 
         Cell[][] nextBoard = new Cell[numColumns][numRows];
 
@@ -139,25 +125,22 @@ public class BoardManager
 
     public static void printBoard(Cell[][] board)
     {
+        aliveCells = 0;
         for(int row = 0; row < board[0].length; row++)
         {
             for(int col = 0; col < board.length; col++)
             {
                 if(board[col][row].isAlive())
+                {
                     System.out.print(aliveChar);
+                    aliveCells++;
+                }
                 else
                     System.out.print(deadChar);
 
             }
             System.out.println();
         }
-        /*
-        System.out.println(
-                String.format(
-                    "rows:%d\ncolumns:%d\n",
-                    board[0].length,
-                    board.length));
-        */
     }
 
     public static void animateBoard(Cell[][] board, int msDelay, int maxGenerations) throws InterruptedException
@@ -169,6 +152,7 @@ public class BoardManager
         {
             clearTerm();
             printBoard(currentBoard);
+            System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
             currentBoard = constructNextFrame(currentBoard);
             generation++;
             Thread.sleep(msDelay);
@@ -185,14 +169,6 @@ public class BoardManager
         Cell[][] emptyBoard = new Cell[MAX_COLS][MAX_ROWS];
 
         Cell[][] testBoard = randomBoard(MAX_COLS, MAX_ROWS);
-
-        // System.out.println(String.format("# rows: %d", testBoard[0].length));
-        // System.out.println(String.format("# cols: %d", testBoard.length));
-        // printBoard(testBoard);
-        // printBoard(constructNextFrame(testBoard));
-        // countAliveNeighbors(29, 0, testBoard);
-
-        Cell[][] currentBoard = testBoard;
 
         try {
             animateBoard(testBoard, 90, 2000);
