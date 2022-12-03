@@ -78,21 +78,21 @@ public class CellBoard
         return frameList;
     }
 
-    public static Cell[][] randomBoard(int maxRows, int maxCols)
+    public static Cell[][] randomBoard(int maxCols, int maxRows)
     {
-        Cell[][] randomBoard = new Cell[maxRows][maxCols];
+        Cell[][] randomBoard = new Cell[maxCols][maxRows];
 
         BooleanSupplier lifeChance = () -> Math.random() > 0.8;
 
-        for(int c = 0; c < maxCols; c++)
+        for(int r = 0; r < maxRows; r++)
         {
-            for(int r = 0; r < maxRows; r++)
+            for(int c = 0; c < maxCols; c++)
             {
                 State state = lifeChance.getAsBoolean() ?
                     State.ALIVE :
                     State.DEAD;
 
-                randomBoard[r][c] = new Cell(state);
+                randomBoard[c][r] = new Cell(state);
             }
         }
 
@@ -110,7 +110,7 @@ public class CellBoard
         return nextFrame;
     }
 
-    public static int countAliveNeighbors(int col, int row, Cell[][] frame)
+    public static int countAliveNeighbors(int col, int row, Cell[][] board)
     {
         int neighborCount = 0;
 
@@ -119,14 +119,14 @@ public class CellBoard
             for(int j = (row - 1); j <= (row + 1); j++)
             {
                 // System.out.println(String.format("(%d, %d)",i, j));
-                if(i >= 0 && i < frame[0].length)
+                if(i >= 0 && i < board[0].length)
                 {
-                    if(j >= 0 && j < frame.length)
+                    if(j >= 0 && j < board.length)
                     {
                         if(!(col == i && row == j))
                         {
-                            System.out.println(String.format("%s at (%d, %d)", frame[i][j], j, i));
-                            if(frame[i][j].isAlive())
+                            // System.out.println(String.format("%s at (%d, %d)", board[i][j], j, i));
+                            if(board[i][j].isAlive())
                             {
                                 neighborCount++;
                             }
@@ -135,8 +135,7 @@ public class CellBoard
                 }
             }
         }
-        System.out.println(neighborCount);
-        
+        // System.out.println(neighborCount);
         return neighborCount;
     }
 
