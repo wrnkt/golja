@@ -11,6 +11,8 @@ public class BoardManager
     private static char aliveChar = 'x';
     private static char deadChar = '.';
 
+    static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
+
     static Appliable defaultRule = (c, r, b) -> {
         int aliveNeighbors = countAliveNeighbors(c, r, b);
         if(b[c][r].isAlive())
@@ -77,10 +79,9 @@ public class BoardManager
         return neighborCount;
     }
 
-    public static Cell[][] randomBoard(int columns, int rows)
+    public static Cell[][] randomBoard(int columns, int rows, BooleanSupplier lifeChance)
     {
         Cell[][] randomBoard = new Cell[columns][rows];
-        BooleanSupplier lifeChance = () -> Math.random() > 0.7;
 
         for(int r = 0; r < rows; r++)
         {
@@ -176,7 +177,7 @@ public class BoardManager
     {
         Cell[][] emptyBoard = new Cell[MAX_COLS][MAX_ROWS];
 
-        Cell[][] testBoard = randomBoard(MAX_COLS, MAX_ROWS);
+        Cell[][] testBoard = randomBoard(MAX_COLS, MAX_ROWS, DEFAULT_LIFE_CHANCE);
 
         try {
             animateBoard(testBoard, defaultRule, 90, 2000);
