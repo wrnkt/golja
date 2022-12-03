@@ -11,62 +11,37 @@ public class BoardManager
     private static char aliveChar = 'x';
     private static char deadChar = '.';
 
-    public static Cell[][] deadBoard(int maxCols, int maxRows)
-    {
-        Cell[][] deadBoard = new Cell[maxCols][maxRows];
-
-        for(int r = 0; r < maxRows; r++)
+    static Appliable defaultRule = (c, r, b) -> {
+        int aliveNeighbors = countAliveNeighbors(c, r, b);
+        if(b[c][r].isAlive())
         {
-            for(int c = 0; c < maxCols; c++)
-            {
-                deadBoard[c][r] = new Cell(State.DEAD);
-            }
+            if(aliveNeighbors == 2 || aliveNeighbors == 3)
+                return true;
+            else
+                return false;
         }
-        return deadBoard;
-    }
+        else
+        {
+            if(aliveNeighbors == 3)
+                return true;
+            else
+                return false;
+        }
+    };
 
-    public static Cell[][] constructNextFrame(Cell[][] originalBoard)
+    public static Cell[][] constructNextFrame(Cell[][] originalBoard, Appliable rule)
     {
         int numRows = originalBoard[0].length;
         int numColumns = originalBoard.length;;
-        boolean[][] nextGenerationRef = new boolean[numColumns][numRows];
 
         Cell[][] nextBoard = new Cell[numColumns][numRows];
 
-        for(int row = 0; row < originalBoard[0].length; row++)
+        for(int row = 0; row < numRows; row++)
         {
-            for(int col = 0; col < originalBoard.length; col++)
+            for(int col = 0; col < numColumns; col++)
             {
-                int aliveNeighbors = countAliveNeighbors(col, row, originalBoard);
-                if(originalBoard[col][row].isAlive())
-                {
-                    if(aliveNeighbors == 2 || aliveNeighbors == 3)
-                    {
-                        nextGenerationRef[col][row] = true;
-                    }
-                    else
-                    {
-                        nextGenerationRef[col][row] = false;
-                    }
-                }
-                else
-                {
-                    if(aliveNeighbors == 3)
-                    {
-                        nextGenerationRef[col][row] = true;
-                    }
-                }
-            }
-        }
-
-        for(int row = 0; row < originalBoard[0].length; row++)
-        {
-            for(int col = 0; col < originalBoard.length; col++)
-            {
-                if(nextGenerationRef[col][row])
-                    nextBoard[col][row] = new Cell(State.ALIVE);
-                else
-                    nextBoard[col][row] = new Cell(State.DEAD);
+                nextBoard[col][row] = rule.apply(col, row, originalBoard) ?
+                    new Cell(State.ALIVE) : new Cell(State.DEAD);
             }
         }
 
@@ -84,17 +59,15 @@ public class BoardManager
             for(int c = (col - 1); c <= (col + 1); c++)
             {
                 // System.out.println(String.format("(%d, %d)",c, r));
-                if(r >= 0 && r < board[0].length)
+                if(r >= 0 && r < board[0].length &&
+                   c >= 0 && c < board.length)
                 {
-                    if(c >= 0 && c < board.length)
+                    if(!(col == c && row == r))
                     {
-                        if(!(col == c && row == r))
+                        // System.out.println(String.format("%s at (%d, %d)", board[c][r], c, r));
+                        if(board[c][r].isAlive())
                         {
-                            // System.out.println(String.format("%s at (%d, %d)", board[c][r], c, r));
-                            if(board[c][r].isAlive())
-                            {
-                                neighborCount++;
-                            }
+                            neighborCount++;
                         }
                     }
                 }
@@ -107,7 +80,7 @@ public class BoardManager
     public static Cell[][] randomBoard(int maxCols, int maxRows)
     {
         Cell[][] randomBoard = new Cell[maxCols][maxRows];
-        BooleanSupplier lifeChance = () -> Math.random() > 0.8;
+        BooleanSupplier lifeChance = () -> Math.random() > 0.7;
 
         for(int r = 0; r < maxRows; r++)
         {
@@ -121,6 +94,20 @@ public class BoardManager
             }
         }
         return randomBoard;
+    }
+
+    public static Cell[][] deadBoard(int maxCols, int maxRows)
+    {
+        Cell[][] deadBoard = new Cell[maxCols][maxRows];
+
+        for(int r = 0; r < maxRows; r++)
+        {
+            for(int c = 0; c < maxCols; c++)
+            {
+                deadBoard[c][r] = new Cell(State.DEAD);
+            }
+        }
+        return deadBoard;
     }
 
     public static void printBoard(Cell[][] board)
@@ -158,9 +145,6 @@ public class BoardManager
             clearTerm();
             printBoard(currentBoard);
             System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
-<<<<<<< Updated upstream
-            currentBoard = constructNextFrame(currentBoard);
-=======
             currentBoard = constructNextFrame(currentBoard, defaultRule);
             generation++;
             Thread.sleep(msDelay);
@@ -178,7 +162,6 @@ public class BoardManager
             printBoard(currentBoard);
             printBoardInfo(board);
             currentBoard = constructNextFrame(currentBoard, rule);
->>>>>>> Stashed changes
             generation++;
             Thread.sleep(msDelay);
         }
@@ -196,7 +179,7 @@ public class BoardManager
         Cell[][] testBoard = randomBoard(MAX_COLS, MAX_ROWS);
 
         try {
-            animateBoard(testBoard, 90, 2000);
+            animateBoard(testBoard, defaultRule, 90, 2000);
         } catch(InterruptedException e) {
             System.out.println("[LOG]: Board print failed.");
         }
