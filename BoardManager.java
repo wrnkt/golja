@@ -170,6 +170,7 @@ public class BoardManager
             clearTerm();
             printBoard(currentBoard);
             currentBoard = constructNextFrame(currentBoard);
+            generation++;
             Thread.sleep(msDelay);
         }
     }
@@ -194,7 +195,7 @@ public class BoardManager
         Cell[][] currentBoard = testBoard;
 
         try {
-            animateBoard(testBoard, 100, 1000);
+            animateBoard(testBoard, 90, 2000);
         } catch(InterruptedException e) {
             System.out.println("[LOG]: Board print failed.");
         }
