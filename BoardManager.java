@@ -11,22 +11,32 @@ public class BoardManager
     private static char aliveChar = 'x';
     private static char deadChar = '.';
 
-    public static Cell[][] deadBoard(int maxCols, int maxRows)
-    {
-        Cell[][] deadBoard = new Cell[maxCols][maxRows];
+    static Appliable ruleOne = (c, r, b) -> defaultRule(c, r, b);
 
-        for(int r = 0; r < maxRows; r++)
+    private static boolean defaultRule(int col, int row, Cell[][] board)
+    {
+        int aliveNeighbors = countAliveNeighbors(col, row, board);
+        if(board[col][row].isAlive())
         {
-            for(int c = 0; c < maxCols; c++)
-            {
-                deadBoard[c][r] = new Cell(State.DEAD);
-            }
+            if(aliveNeighbors == 2 || aliveNeighbors == 3)
+                return true;
+            else
+                return false;
         }
-        return deadBoard;
+        else
+        {
+            if(aliveNeighbors == 3)
+                return true;
+            else
+                return false;
+        }
     }
 
     public static Cell[][] constructNextFrame(Cell[][] originalBoard)
     {
+        // I'm creating a whole new board each time so I dont really need
+        // nextGenerationRef. 
+
         int numRows = originalBoard[0].length;
         int numColumns = originalBoard.length;;
         boolean[][] nextGenerationRef = new boolean[numColumns][numRows];
@@ -37,6 +47,9 @@ public class BoardManager
         {
             for(int col = 0; col < originalBoard.length; col++)
             {
+                nextGenerationRef[col][row] = ruleOne.apply(col, row, originalBoard);
+                // could use a single boolean as a transfer value
+                /*
                 int aliveNeighbors = countAliveNeighbors(col, row, originalBoard);
                 if(originalBoard[col][row].isAlive())
                 {
@@ -56,6 +69,7 @@ public class BoardManager
                         nextGenerationRef[col][row] = true;
                     }
                 }
+                */
             }
         }
 
@@ -107,7 +121,7 @@ public class BoardManager
     public static Cell[][] randomBoard(int maxCols, int maxRows)
     {
         Cell[][] randomBoard = new Cell[maxCols][maxRows];
-        BooleanSupplier lifeChance = () -> Math.random() > 0.8;
+        BooleanSupplier lifeChance = () -> Math.random() > 0.7;
 
         for(int r = 0; r < maxRows; r++)
         {
@@ -121,6 +135,20 @@ public class BoardManager
             }
         }
         return randomBoard;
+    }
+
+    public static Cell[][] deadBoard(int maxCols, int maxRows)
+    {
+        Cell[][] deadBoard = new Cell[maxCols][maxRows];
+
+        for(int r = 0; r < maxRows; r++)
+        {
+            for(int c = 0; c < maxCols; c++)
+            {
+                deadBoard[c][r] = new Cell(State.DEAD);
+            }
+        }
+        return deadBoard;
     }
 
     public static void printBoard(Cell[][] board)
