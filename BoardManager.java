@@ -3,8 +3,8 @@ import java.lang.Thread;
 
 public class BoardManager
 {
-    private static final int MAX_ROWS = 20;
-    private static final int MAX_COLS = 30;
+    private static final int MAX_ROWS = 40;
+    private static final int MAX_COLS = 140;
 
     private static char aliveChar = 'x';
     private static char deadChar = '.';
@@ -160,6 +160,20 @@ public class BoardManager
         */
     }
 
+    public static void animateBoard(Cell[][] board, int msDelay, int maxGenerations) throws InterruptedException
+    {
+        int generation = 0;
+        Cell[][] currentBoard = board;
+
+        while(generation < maxGenerations)
+        {
+            clearTerm();
+            printBoard(currentBoard);
+            currentBoard = constructNextFrame(currentBoard);
+            Thread.sleep(msDelay);
+        }
+    }
+
     public static void clearTerm()
     {
         System.out.print("\033[H\033[2J");
@@ -177,19 +191,12 @@ public class BoardManager
         // printBoard(constructNextFrame(testBoard));
         // countAliveNeighbors(29, 0, testBoard);
 
-        Cell[][] currentBoard = randomBoard(MAX_COLS,MAX_ROWS);
-        while(true)
-        {
-            clearTerm();
-            printBoard(currentBoard);
-            currentBoard = constructNextFrame(currentBoard);
-            try
-            {
-                Thread.sleep(500);
-            }
-            catch(InterruptedException e)
-            {
-            }
+        Cell[][] currentBoard = testBoard;
+
+        try {
+            animateBoard(testBoard, 100, 1000);
+        } catch(InterruptedException e) {
+            System.out.println("[LOG]: Board print failed.");
         }
         
     }
