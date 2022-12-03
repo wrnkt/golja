@@ -59,7 +59,7 @@ public class BoardLoader
     public static void main(String[] args) {
         try {
             Cell[][] test = loadFromFile(Path.of("boards", "testboard.txt"));
-            BoardManager.printBoard(test);
+            BoardPrinter.printBoard(test);
         } catch(IOException e) {
         }
     }
