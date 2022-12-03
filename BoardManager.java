@@ -11,12 +11,9 @@ public class BoardManager
     private static char aliveChar = 'x';
     private static char deadChar = '.';
 
-    static Appliable ruleOne = (c, r, b) -> defaultRule(c, r, b);
-
-    private static boolean defaultRule(int col, int row, Cell[][] board)
-    {
-        int aliveNeighbors = countAliveNeighbors(col, row, board);
-        if(board[col][row].isAlive())
+    static Appliable defaultRule = (c, r, b) -> {
+        int aliveNeighbors = countAliveNeighbors(c, r, b);
+        if(b[c][r].isAlive())
         {
             if(aliveNeighbors == 2 || aliveNeighbors == 3)
                 return true;
@@ -30,7 +27,7 @@ public class BoardManager
             else
                 return false;
         }
-    }
+    };
 
     public static Cell[][] constructNextFrame(Cell[][] originalBoard)
     {
@@ -47,7 +44,7 @@ public class BoardManager
         {
             for(int col = 0; col < originalBoard.length; col++)
             {
-                nextGenerationRef[col][row] = ruleOne.apply(col, row, originalBoard);
+                nextGenerationRef[col][row] = defaultRule.apply(col, row, originalBoard);
                 // could use a single boolean as a transfer value
                 /*
                 int aliveNeighbors = countAliveNeighbors(col, row, originalBoard);
