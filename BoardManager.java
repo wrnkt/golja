@@ -31,12 +31,8 @@ public class BoardManager
 
     public static Cell[][] constructNextFrame(Cell[][] originalBoard)
     {
-        // I'm creating a whole new board each time so I dont really need
-        // nextGenerationRef. 
-
         int numRows = originalBoard[0].length;
         int numColumns = originalBoard.length;;
-        boolean[][] nextGenerationRef = new boolean[numColumns][numRows];
 
         Cell[][] nextBoard = new Cell[numColumns][numRows];
 
@@ -44,40 +40,8 @@ public class BoardManager
         {
             for(int col = 0; col < originalBoard.length; col++)
             {
-                nextGenerationRef[col][row] = defaultRule.apply(col, row, originalBoard);
-                // could use a single boolean as a transfer value
-                /*
-                int aliveNeighbors = countAliveNeighbors(col, row, originalBoard);
-                if(originalBoard[col][row].isAlive())
-                {
-                    if(aliveNeighbors == 2 || aliveNeighbors == 3)
-                    {
-                        nextGenerationRef[col][row] = true;
-                    }
-                    else
-                    {
-                        nextGenerationRef[col][row] = false;
-                    }
-                }
-                else
-                {
-                    if(aliveNeighbors == 3)
-                    {
-                        nextGenerationRef[col][row] = true;
-                    }
-                }
-                */
-            }
-        }
-
-        for(int row = 0; row < originalBoard[0].length; row++)
-        {
-            for(int col = 0; col < originalBoard.length; col++)
-            {
-                if(nextGenerationRef[col][row])
-                    nextBoard[col][row] = new Cell(State.ALIVE);
-                else
-                    nextBoard[col][row] = new Cell(State.DEAD);
+                nextBoard[col][row] = defaultRule.apply(col, row, originalBoard) ?
+                    new Cell(State.ALIVE) : new Cell(State.DEAD);
             }
         }
 
