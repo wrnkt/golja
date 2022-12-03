@@ -1,7 +1,8 @@
-import java.util.function.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.lang.Math;
+
+import java.util.function.*;
 
 import java.lang.Thread;
 
@@ -10,12 +11,12 @@ import java.lang.Thread;
 
 public class CellBoard
 {
-    private static final int MAX_ROWS = 20;
-    private static final int MAX_COLS = 30;
+    private static final int MAX_ROWS = 30;
+    private static final int MAX_COLS = 20;
 
     private static int tickLength = 4;
 
-    private Cell[][] board = new Cell[MAX_ROWS][MAX_COLS];
+    private Cell[][] board = new Cell[MAX_COLS][MAX_ROWS];
 
     private static char aliveChar = 'x';
     private static char deadChar = '.';
@@ -104,17 +105,39 @@ public class CellBoard
      */
     public static Cell[][] applyRulesConstructNextFrame(Cell [][] frame)
     {
-        // TODO: implement getNextFrame
         Cell[][] nextFrame = new Cell[MAX_ROWS][MAX_COLS];
 
         return nextFrame;
     }
 
-    public static int getNeighbors(int x, int y, Cell[][] frame)
+    public static int getNeighborAliveCount(int x, int y, Cell[][] frame)
     {
-        //TODO: implement getNeighbors
+        int neighborCount = 0;
+
+        for(int i = (x - 1); i <= (x + 1); i++)
+        {
+            for(int j = (y - 1); j <= (y + 1); j++)
+            {
+                // System.out.println(String.format("(%d, %d)",i, j));
+                System.out.println(String.format("%s at (%d, %d)", frame[i][j], i, j));
+                if(i > 0 && i < frame[0].length)
+                {
+                    if(j > 0 && j < frame.length)
+                    {
+                        if(x != i && y != j)
+                        {
+                            if(frame[i][j].isAlive())
+                            {
+                                neighborCount++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println(neighborCount);
         
-        return 0;
+        return neighborCount;
     }
 
     public static void clearTerm()
@@ -124,8 +147,11 @@ public class CellBoard
 
     public static void main(String[] args)
     {
-        ArrayList<Cell[][]> randomFrames1 = createRandomizedFrameList(100);
-        printFrames(randomFrames1);
+        // ArrayList<Cell[][]> randomFrames1 = createRandomizedFrameList(100);
+        // printFrames(randomFrames1);
 
+        Cell[][] test = randomBoard(MAX_COLS, MAX_ROWS);
+        printBoard(test);
+        getNeighborAliveCount(1, 1, test);
     }
 }
