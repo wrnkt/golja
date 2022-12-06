@@ -43,6 +43,17 @@ public class BoardManager
         return nextBoard;
     }
 
+    private static boolean isInBoard(int col, int row, Cell[][] board)
+    {
+        if(row < 0 || row >= board[0].length)
+            return false;
+
+        if(col < 0 || col >= board.length)
+            return false;
+
+        return true;
+    }
+
     public static int countAliveNeighbors(int col, int row, Cell[][] board)
     {
         int neighborCount = 0;
@@ -51,15 +62,15 @@ public class BoardManager
         {
             for(int c = (col - 1); c <= (col + 1); c++)
             {
-                if(r >= 0 && r < board[0].length &&
-                   c >= 0 && c < board.length &&
-                   !(col == c && row == r)
-                   )
+                if(!isInBoard(c, r, board))
+                   continue;
+
+                if(col == c && row == r)
+                   continue;
+
+                if(board[c][r].isAlive())
                 {
-                    if(board[c][r].isAlive())
-                    {
-                        neighborCount++;
-                    }
+                    neighborCount++;
                 }
             }
         }
