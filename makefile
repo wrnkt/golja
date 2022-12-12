@@ -5,7 +5,7 @@ JFLAGS = -Wall
 
 CLASSDIR = classes
 
-default: BoardLoader.class BoardManager.class BoardPrinter.class Appliable.class Cell.class
+default: BoardLoader.class BoardManager.class BoardPrinter.class AppliableRule.class Cell.class
 
 rebuild:
 	make clean
@@ -14,8 +14,8 @@ rebuild:
 BoardPrinter.class: BoardPrinter.java
 	$(JC) $(JCFLAGS) -d $(CLASSDIR) BoardPrinter.java
 
-Appliable.class: Appliable.java
-	$(JC) $(JCFLAGS) -d $(CLASSDIR) Appliable.java
+AppliableRule.class: AppliableRule.java
+	$(JC) $(JCFLAGS) -d $(CLASSDIR) AppliableRule.java
 
 BoardLoader.class: BoardLoader.java
 	$(JC) $(JCFLAGS) -d $(CLASSDIR) BoardLoader.java

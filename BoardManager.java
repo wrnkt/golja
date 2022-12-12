@@ -7,7 +7,7 @@ public class BoardManager
 
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
-    static Appliable DEFAULT_RULE = (c, r, b) -> {
+    static AppliableRule DEFAULT_RULE = (c, r, b) -> {
         int aliveNeighbors = countAliveNeighbors(c, r, b);
         if(b[c][r].isAlive())
         {
@@ -25,7 +25,7 @@ public class BoardManager
         }
     };
 
-    public static Cell[][] constructNextFrame(Cell[][] originalBoard, Appliable rule)
+    public static Cell[][] constructNextFrame(Cell[][] originalBoard, AppliableRule rule)
     {
         int numRows = originalBoard[0].length;
         int numColumns = originalBoard.length;;

@@ -41,7 +41,7 @@ public class BoardPrinter
         animateBoard(board, boardManager.DEFAULT_RULE, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
     }
 
-    public static void animateBoard(Cell[][] board, Appliable rule) throws InterruptedException
+    public static void animateBoard(Cell[][] board, AppliableRule rule) throws InterruptedException
     {
         animateBoard(board, rule, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
     }
@@ -51,12 +51,12 @@ public class BoardPrinter
         animateBoard(board, boardManager.DEFAULT_RULE, msDelay, DEFAULT_MAX_GENERATIONS);
     }
 
-    public static void animateBoard(Cell[][] board, Appliable rule, int msDelay) throws InterruptedException
+    public static void animateBoard(Cell[][] board, AppliableRule rule, int msDelay) throws InterruptedException
     {
         animateBoard(board, rule, msDelay, DEFAULT_MAX_GENERATIONS);
     }
 
-    public static void animateBoard(Cell[][] board, Appliable rule, int msDelay, int maxGenerations) throws InterruptedException
+    public static void animateBoard(Cell[][] board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException
     {
         int generation = 0;
         Cell[][] currentBoard = board;
