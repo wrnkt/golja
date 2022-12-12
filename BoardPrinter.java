@@ -1,10 +1,10 @@
 public class BoardPrinter
 {
-    private static final int DEFAULT_ROWS = 40;
-    private static final int DEFAULT_COLS = 140;
+    public static final int DEFAULT_ROWS = 40;
+    public static final int DEFAULT_COLS = 140;
 
-    private static final int DEFAULT_MAX_GENERATIONS = 1000;
-    private static final int DEFAULT_MS_DELAY = 90;
+    public static final int DEFAULT_MAX_GENERATIONS = 1000;
+    public static final int DEFAULT_MS_DELAY = 90;
 
     private static char aliveChar = 'x';
     private static char deadChar = '.';

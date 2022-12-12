@@ -108,4 +108,16 @@ public class BoardManager
         }
         return deadBoard;
     }
+
+    public static void main(String[] args) {
+        // animateFromPath(Path.of("boards", "gosperglidergun2.txt"));
+        try
+        {
+            BoardPrinter.animateBoard(randomBoard(BoardPrinter.DEFAULT_COLS, BoardPrinter.DEFAULT_ROWS, DEFAULT_LIFE_CHANCE));
+        }
+        catch (InterruptedException e)
+        {
+            System.out.println("Failed to animate");
+        }
+    }
 }

@@ -56,14 +56,15 @@ public class BoardLoader
         }
     }
 
-    public static void main(String[] args) {
+    public static void animateFromPath(Path path)
+    {
         try {
-            Cell[][] test = loadFromFile(Path.of("boards", "gosperglidergun2.txt"));
-            // BoardPrinter.printBoard(test);
+            Cell[][] board = loadFromFile(path);
             try {
-                BoardPrinter.animateBoard(test);
+                BoardPrinter.animateBoard(board);
 
             } catch(Exception e) {
+                System.out.println("Failed to animate board.");
             }
         } catch(IOException e) {
             System.out.println("Couldn't load from path.");
