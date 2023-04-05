@@ -1,38 +1,29 @@
-enum State
-{
-    ALIVE, DEAD;
+enum State {
+    ALIVE,
+    DEAD;
 }
 
 public class Cell
 {
     private State cellState;
 
-    public Cell()
-    {
+    public Cell() {
         cellState = State.DEAD;
     }
 
-    public Cell(State state)
-    {
+    public Cell(State state) {
         cellState = state;
     }
 
-    private State getCellState()
-    {
-        return cellState;
-    }
+    private State getCellState() { return cellState; }
 
-    public void setCellState()
-    {
-    }
+    public void setCellState() {}
 
-    public boolean isAlive()
-    {
+    public boolean isAlive() {
         return getCellState() == State.ALIVE ? true : false;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return getCellState().name();
     }
 }
