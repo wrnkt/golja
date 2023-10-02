@@ -1,2 +1,16 @@
 *.swp
 classes
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Gradle wrapper .jar and .bat
+gradle-wrapper.jar
+gradlew*
+
+# Ignore Eclipse settings and .project file
+.project
+.settings/

@@ -1,3 +1,5 @@
+package golja;
+
 enum State {
     ALIVE,
     DEAD;

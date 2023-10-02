@@ -1,3 +1,5 @@
+package golja;
+
 import java.util.stream.Stream;
 import java.nio.file.*;
 import java.io.*;

@@ -1,3 +1,5 @@
+package golja;
+
 public class BoardPrinter
 {
     public static final int DEFAULT_ROWS = 40;
