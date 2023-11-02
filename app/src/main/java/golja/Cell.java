@@ -3,6 +3,11 @@ package golja;
 enum State {
     ALIVE,
     DEAD;
+
+    public static final int size;
+    static {
+      size = values().length;
+    }
 }
 
 public class Cell
