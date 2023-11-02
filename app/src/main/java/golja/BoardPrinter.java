@@ -13,9 +13,11 @@ public class BoardPrinter
 
     private final static BoardManager boardManager = new BoardManager();
 
+    private static int aliveCells = 0;
+
     public static void printBoard(Cell[][] board)
     {
-        boardManager.aliveCells = 0;
+        aliveCells = 0;
         for(int row = 0; row < board[0].length; row++)
         {
             for(int col = 0; col < board.length; col++)
@@ -23,7 +25,7 @@ public class BoardPrinter
                 if(board[col][row].isAlive())
                 {
                     System.out.print(aliveChar);
-                    boardManager.aliveCells++;
+                    aliveCells++;
                 }
                 else
                     System.out.print(deadChar);
@@ -35,7 +37,7 @@ public class BoardPrinter
 
     public static void printBoardInfo(Cell[][] board)
     {
-        System.out.println(String.format("%d/%d cells are alive.", boardManager.aliveCells, (board[0].length*board.length)));
+        System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board[0].length*board.length)));
     }
 
     public static void animateBoard(Cell[][] board) throws InterruptedException

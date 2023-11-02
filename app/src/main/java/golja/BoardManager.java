@@ -3,6 +3,7 @@ package golja;
 import java.util.function.*;
 import java.lang.Thread;
 
+
 public class BoardManager
 {
     static int aliveCells = 0;
@@ -111,6 +112,4 @@ public class BoardManager
         return deadBoard;
     }
 
-    public static void main(String[] args) {
-    }
 }
