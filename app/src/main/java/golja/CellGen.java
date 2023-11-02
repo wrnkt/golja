@@ -18,7 +18,7 @@ public final class CellGen {
 
   public static final CellStateSupplier PSEUDO_EVEN_CELL_STATE_SUPPLIER =
   () -> {
-    ArrayList<RangeAssociation> ranges = evenedSubRanges(State.size, State.values());
+    ArrayList<RangeAssociation> ranges = evenedSubRanges(State.values());
     int rand = (int)(Math.random() * FULL_RANGE_SIZE + 1);
 
     State state = State.DEAD;
@@ -48,17 +48,19 @@ public final class CellGen {
     return new Cell(PSEUDO_EVEN_CELL_STATE_SUPPLIER.get());
   };
 
-  // static private ArrayList<RangeAssociation> weightedSubRanges(int numRanges, Object[] objects)
+  // static private ArrayList<RangeAssociation> weightedSubRanges(int numRanges, Object[] objects, int[] weights)
   // {
+  //   ArrayList<RangeAssociation> result = new ArrayList<>();
   //
   // }
 
-  static private ArrayList<RangeAssociation> evenedSubRanges(int numRanges, Object[] objects)
+  static private ArrayList<RangeAssociation> evenedSubRanges(Object[] objects)
   {
     ArrayList<RangeAssociation> result = new ArrayList<>();
 
     int remaining = FULL_RANGE_SIZE;
 
+    int numRanges = objects.length;
     int batchSize = FULL_RANGE_SIZE / numRanges;
     int batchesProcessed = 0;
 
