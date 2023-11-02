@@ -1,6 +1,7 @@
 package golja;
 
 enum State {
+    OBSTACLE,
     ALIVE,
     DEAD;
 
