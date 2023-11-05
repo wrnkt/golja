@@ -7,11 +7,10 @@ public class App {
         try
         {
             BoardPrinter.animateBoard(
-                    BoardManager.randomBoard(
-                        BoardPrinter.DEFAULT_COLS,
-                        BoardPrinter.DEFAULT_ROWS,
-                        BoardManager.DEFAULT_LIFE_CHANCE
-                    )
+              BoardManager.constructStandardBoard(
+                BoardPrinter.DEFAULT_COLS,
+                BoardPrinter.DEFAULT_ROWS
+              )
             );
         }
         catch (InterruptedException e)
