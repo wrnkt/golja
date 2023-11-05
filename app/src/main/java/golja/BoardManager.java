@@ -6,41 +6,38 @@ import java.lang.Thread;
 
 public class BoardManager
 {
-    static int aliveCells = 0;
-
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
     static AppliableRule DEFAULT_RULE = (c, r, b) -> {
         int aliveNeighbors = countAliveNeighbors(c, r, b);
-        if(b[c][r].isAlive())
+        if(b.at(c, r).isAlive())
         {
             if(aliveNeighbors == 2 || aliveNeighbors == 3)
-                return true;
+                return State.ALIVE;
             else
-                return false;
+                return State.DEAD;
         }
         else
         {
             if(aliveNeighbors == 3)
-                return true;
+                return State.ALIVE;
             else
-                return false;
+                return State.DEAD;
         }
     };
 
-    public static Cell[][] constructNextFrame(Cell[][] originalBoard, AppliableRule rule)
+    public static Board constructNextFrame(Board originalBoard, AppliableRule rule)
     {
-        int numRows = originalBoard[0].length;
-        int numColumns = originalBoard.length;;
+        int numRows = originalBoard.getHeight();
+        int numColumns = originalBoard.getWidth();
 
-        Cell[][] nextBoard = new Cell[numColumns][numRows];
+        Board nextBoard = new Board(numColumns, numRows);
 
         for(int row = 0; row < numRows; row++)
         {
             for(int col = 0; col < numColumns; col++)
             {
-                nextBoard[col][row] = rule.apply(col, row, originalBoard) ?
-                    new Cell(State.ALIVE) : new Cell(State.DEAD);
+                nextBoard.at(col, row).setCellState(rule.apply(col, row, originalBoard));
             }
         }
         return nextBoard;
@@ -57,32 +54,29 @@ public class BoardManager
         return true;
     }
 
-    public static int countAliveNeighbors(int col, int row, Cell[][] board)
+
+    public static int countAliveNeighbors(int col, int row, Board board)
     {
-        int neighborCount = 0;
+      int neighborCount = 0;
 
-        for(int r = (row - 1); r <= (row + 1); r++)
-        {
-            for(int c = (col - 1); c <= (col + 1); c++)
-            {
-                if(!isInBoard(c, r, board))
-                   continue;
+      for(int r = (row - 1); r <= (row + 1); r++)
+      {
+          for(int c = (col - 1); c <= (col + 1); c++)
+          {
+              if( !board.contains(c, r) ) continue;
 
-                if(col == c && row == r)
-                   continue;
+              if( col == c && row == r ) continue;
 
-                if(board[c][r].isAlive())
-                {
-                    neighborCount++;
-                }
-            }
-        }
-        return neighborCount;
+              if( board.at(c, r).isAlive() ) neighborCount++;
+          }
+      }
+      return neighborCount;
+
     }
 
-    public static Cell[][] randomBoard(int columns, int rows, BooleanSupplier lifeChance)
+    public static Board randomBoard(int columns, int rows, BooleanSupplier lifeChance)
     {
-        Cell[][] randomBoard = new Cell[columns][rows];
+        Board board = new Board(columns, rows);
 
         for(int r = 0; r < rows; r++)
         {
@@ -92,21 +86,21 @@ public class BoardManager
                     State.ALIVE :
                     State.DEAD;
 
-                randomBoard[c][r] = new Cell(state);
+                board.at(c, r).setCellState(state);
             }
         }
-        return randomBoard;
+        return board;
     }
 
-    public static Cell[][] deadBoard(int columns, int rows)
+    public static Board deadBoard(int columns, int rows)
     {
-        Cell[][] deadBoard = new Cell[columns][rows];
+        Board deadBoard = new Board(columns, rows);
 
         for(int r = 0; r < rows; r++)
         {
             for(int c = 0; c < columns; c++)
             {
-                deadBoard[c][r] = new Cell(State.DEAD);
+                deadBoard.at(c, r).setCellState(State.DEAD);
             }
         }
         return deadBoard;
