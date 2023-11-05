@@ -1,5 +1,6 @@
 package golja;
 
+import golja.rule.*;
 import java.util.ArrayList;
 
 

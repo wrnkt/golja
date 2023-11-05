@@ -1,5 +1,8 @@
 package golja;
 
+import golja.rule.Rules;
+import golja.rule.AppliableRule;
+
 public class BoardPrinter
 {
     public static final int DEFAULT_ROWS = 40;
@@ -10,8 +13,6 @@ public class BoardPrinter
 
     private static char aliveChar = 'x';
     private static char deadChar = '.';
-
-    private final static BoardManager boardManager = new BoardManager();
 
 
     public static void printBoard(Board board) {
@@ -51,7 +52,7 @@ public class BoardPrinter
     {
         animateBoard(
           board,
-          BoardManager.DEFAULT_RULE,
+          Rules.DEFAULT_RULE,
           DEFAULT_MS_DELAY,
           DEFAULT_MAX_GENERATIONS
         );
@@ -77,7 +78,7 @@ public class BoardPrinter
     {
         animateBoard(
           board,
-          BoardManager.DEFAULT_RULE,
+          Rules.DEFAULT_RULE,
           msDelay,
           DEFAULT_MAX_GENERATIONS
         );

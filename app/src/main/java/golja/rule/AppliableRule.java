@@ -1,4 +1,7 @@
-package golja;
+package golja.rule;
+
+import golja.State;
+import golja.Board;
 
 @FunctionalInterface
 public interface AppliableRule
