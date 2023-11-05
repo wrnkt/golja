@@ -41,9 +41,9 @@ public class BoardLoader
                     for(int col = 0; col < board.getWidth(); col++)
                     {
                         if(new String(aliveChars).indexOf(fileContent.charAt(location)) == -1)
-                            board.at(col, row).setCellState(State.DEAD);
+                            board.at(col, row).setState(State.DEAD);
                         else
-                            board.at(col, row).setCellState(State.ALIVE);
+                            board.at(col, row).setState(State.ALIVE);
 
                         location++;
                     }

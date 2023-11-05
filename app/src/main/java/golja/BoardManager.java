@@ -6,6 +6,7 @@ import java.lang.Thread;
 
 public class BoardManager
 {
+
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
     static AppliableRule DEFAULT_RULE = (c, r, b) -> {
@@ -37,12 +38,11 @@ public class BoardManager
         {
             for(int col = 0; col < numColumns; col++)
             {
-                nextBoard.at(col, row).setCellState(rule.apply(col, row, originalBoard));
+                nextBoard.at(col, row).setState(rule.apply(col, row, originalBoard));
             }
         }
         return nextBoard;
     }
-
 
     public static int countAliveNeighbors(int col, int row, Board board)
     {
@@ -75,7 +75,7 @@ public class BoardManager
                     State.ALIVE :
                     State.DEAD;
 
-                board.at(c, r).setCellState(state);
+                board.at(c, r).setState(state);
             }
         }
         return board;
@@ -89,7 +89,7 @@ public class BoardManager
         {
             for(int c = 0; c < columns; c++)
             {
-                deadBoard.at(c, r).setCellState(State.DEAD);
+                deadBoard.at(c, r).setState(State.DEAD);
             }
         }
         return deadBoard;

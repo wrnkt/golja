@@ -1,6 +1,8 @@
 package golja;
 
-enum State {
+
+enum State
+{
     OBSTACLE,
     ALIVE,
     DEAD;
@@ -13,27 +15,28 @@ enum State {
 
 public class Cell
 {
-    private State cellState;
+    private State state;
 
     public Cell() {
-        cellState = State.DEAD;
+        state = State.DEAD;
     }
 
     public Cell(State state) {
-        cellState = state;
+        this.state = state;
     }
 
-    private State getCellState() { return cellState; }
+    private State getState() { return state; }
 
-    public void setCellState(State state) {
-      this.cellState = state;
+    public void setState(State state) {
+      this.state = state;
     }
 
     public boolean isAlive() {
-        return getCellState() == State.ALIVE ? true : false;
+        return getState() == State.ALIVE ? true : false;
     }
 
     public String toString() {
-        return getCellState().name();
+        return getState().name();
     }
+
 }
