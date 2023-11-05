@@ -13,6 +13,7 @@ public class BoardPrinter
 
     private final static BoardManager boardManager = new BoardManager();
 
+
     public static void printBoard(Board board) {
         for(int row = 0; row < board.getHeight(); row++)
         {
@@ -30,32 +31,73 @@ public class BoardPrinter
         }
     }
 
-    public static void printBoardInfo(Board board)
+
+    public static void printInfo(Board board)
     {
-        System.out.println(String.format("%d/%d cells are alive.", board.getStats().aliveCells(), board.getStats().totalCells()));
+      System.out.println(
+        String.format(
+          "%d/%d cells are alive.",
+          board.getStats().aliveCells(),
+          board.getStats().totalCells()
+      ));
     }
 
     public static void animateBoard(Board board) throws InterruptedException
     {
-        animateBoard(board, boardManager.DEFAULT_RULE, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
+        animateBoard(
+          board,
+          boardManager.DEFAULT_RULE,
+          DEFAULT_MS_DELAY,
+          DEFAULT_MAX_GENERATIONS
+        );
     }
 
-    public static void animateBoard(Board board, AppliableRule rule) throws InterruptedException
+    public static void animateBoard(
+      Board board,
+      AppliableRule rule
+    ) throws InterruptedException
     {
-        animateBoard(board, rule, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
+        animateBoard(
+          board,
+          rule,
+          DEFAULT_MS_DELAY,
+          DEFAULT_MAX_GENERATIONS
+        );
     }
 
-    public static void animateBoard(Board board, int msDelay) throws InterruptedException
+    public static void animateBoard(
+      Board board,
+      int msDelay
+    ) throws InterruptedException
     {
-        animateBoard(board, boardManager.DEFAULT_RULE, msDelay, DEFAULT_MAX_GENERATIONS);
+        animateBoard(
+          board,
+          boardManager.DEFAULT_RULE,
+          msDelay,
+          DEFAULT_MAX_GENERATIONS
+        );
     }
 
-    public static void animateBoard(Board board, AppliableRule rule, int msDelay) throws InterruptedException
+    public static void animateBoard(
+      Board board,
+      AppliableRule rule,
+      int msDelay
+    ) throws InterruptedException
     {
-        animateBoard(board, rule, msDelay, DEFAULT_MAX_GENERATIONS);
+        animateBoard(
+          board,
+          rule,
+          msDelay,
+          DEFAULT_MAX_GENERATIONS
+        );
     }
 
-    public static void animateBoard(Board board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException
+    public static void animateBoard(
+      Board board,
+      AppliableRule rule,
+      int msDelay,
+      int maxGenerations
+    ) throws InterruptedException
     {
         int generation = 0;
         Board currentBoard = board;
@@ -64,7 +106,7 @@ public class BoardPrinter
         {
             clearTerm();
             printBoard(currentBoard);
-            printBoardInfo(board);
+            printInfo(board);
             boardManager.update(currentBoard, rule);
             generation++;
             Thread.sleep(msDelay);
