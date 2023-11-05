@@ -57,18 +57,4 @@ public class BoardLoader
         }
     }
 
-    public static void animateFromPath(Path path)
-    {
-        try {
-            Cell[][] board = loadFromFile(path);
-            try {
-                BoardPrinter.animateBoard(board);
-
-            } catch(Exception e) {
-                System.out.println("Failed to animate board.");
-            }
-        } catch(IOException e) {
-            System.out.println("Couldn't load from path.");
-        }
-    }
 }
