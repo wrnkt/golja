@@ -5,9 +5,10 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class BoardStats {
-
+public class BoardStats
+{
   private AtomicInteger totalCells = new AtomicInteger(0);
+  private AtomicInteger generation = new AtomicInteger(0);
   private Map<State, AtomicInteger> statMap;
 
   private Board board;
@@ -22,6 +23,10 @@ public class BoardStats {
   public void update() {
     for( State state : State.values() ) this.cellsWithState(state);
     totalCells();
+  }
+
+  public int updateGeneration() {
+    return generation.incrementAndGet();
   }
 
   public int aliveCells() {

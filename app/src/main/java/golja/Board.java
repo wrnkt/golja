@@ -48,7 +48,25 @@ public class Board {
     );
   }
 
-  public boolean update(Board board) {
+  public boolean update(AppliableRule rule) {
+    int rows = getHeight();
+    int cols = getWidth();
+
+    Board tempBoard = new Board(cols, rows);
+
+    for(int row = 0; row < rows; ++row) {
+      for(int col = 0; col < cols; ++col) {
+          tempBoard.at(col, row).setState(rule.apply(col, row, this));
+      }
+    }
+    if (copyStateFrom(tempBoard)) {
+      this.stats.updateGeneration();
+      return true;
+    }
+    return false;
+  }
+
+  public boolean copyStateFrom(Board board) {
     if( !isCongruent(board) ) {
       return false;
     }

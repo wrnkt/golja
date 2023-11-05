@@ -10,7 +10,7 @@ public class BoardManager
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
     static AppliableRule DEFAULT_RULE = (c, r, b) -> {
-        int aliveNeighbors = countAliveNeighbors(c, r, b);
+        int aliveNeighbors = b.neighborsWithState(c, r, State.ALIVE);
         if(b.at(c, r).isAlive())
         {
             if(aliveNeighbors == 2 || aliveNeighbors == 3)
@@ -27,28 +27,9 @@ public class BoardManager
         }
     };
 
-    public static Board update(Board board, AppliableRule rule)
+    public static void update(Board board, AppliableRule rule)
     {
-        int rows = board.getHeight();
-        int cols = board.getWidth();
-
-        Board tempBoard = new Board(cols, rows);
-
-        for(int row = 0; row < rows; row++)
-        {
-            for(int col = 0; col < cols; col++)
-            {
-                tempBoard.at(col, row).setState(rule.apply(col, row, board));
-            }
-        }
-        board.update(tempBoard);
-        return tempBoard;
-    }
-
-    public static int countAliveNeighbors(int col, int row, Board board)
-    {
-      return board.neighborsWithState(col, row, State.ALIVE);
-
+        board.update(rule);
     }
 
     public static Board randomBoard(int columns, int rows, BooleanSupplier lifeChance)
