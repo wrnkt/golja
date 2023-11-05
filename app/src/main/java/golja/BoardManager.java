@@ -1,7 +1,6 @@
 package golja;
 
 import java.util.function.*;
-import java.lang.Thread;
 
 
 public class BoardManager
@@ -48,20 +47,6 @@ public class BoardManager
             }
         }
         return board;
-    }
-
-    public static Board deadBoard(int columns, int rows)
-    {
-        Board deadBoard = new Board(columns, rows);
-
-        for(int r = 0; r < rows; r++)
-        {
-            for(int c = 0; c < columns; c++)
-            {
-                deadBoard.at(c, r).setState(State.DEAD);
-            }
-        }
-        return deadBoard;
     }
 
 }

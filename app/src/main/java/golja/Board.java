@@ -2,6 +2,11 @@ package golja;
 
 import java.util.ArrayList;
 
+@FunctionalInterface
+interface CellOp {
+  void execute(Cell cell);
+}
+
 public class Board {
 
   protected int DEFAULT_WIDTH = 50;
@@ -25,6 +30,11 @@ public class Board {
     this.height = height;
     setupBoard();
     this.stats = new BoardStats(this);
+  }
+
+  public Board(int width, int height, State state) {
+    this(width, height);
+    setAll(state);
   }
 
   private void setupBoard() {
@@ -93,6 +103,29 @@ public class Board {
 
   private boolean isCongruent(Board board) {
     return ( this.getWidth() == board.getWidth() && this.getHeight() == board.getHeight() );
+  }
+
+  public void setDead() {
+    setAll(State.DEAD);
+  }
+
+  public void setAlive() {
+    setAll(State.ALIVE);
+  }
+
+  public void setAll(State state) {
+    operateAll((cell) -> {
+      cell.setState(state);
+    });
+  }
+
+  public void operateAll(CellOp op) {
+    for(int y = 0; y < this.getHeight(); ++y) {
+      for(int x = 0; x < this.getWidth(); ++x) {
+        op.execute(this.at(x, y));
+      }
+    }
+    stats.update();
   }
 
   public void setWidth(int w) {
