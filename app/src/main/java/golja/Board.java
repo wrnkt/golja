@@ -1,8 +1,6 @@
 package golja;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
-
 
 public class Board {
 
@@ -19,14 +17,14 @@ public class Board {
     this.width = DEFAULT_WIDTH;
     this.height = DEFAULT_HEIGHT;
     setupBoard();
-    this.stats = new BoardStats();
+    this.stats = new BoardStats(this);
   }
 
   public Board(int width, int height) {
     this.width = width;
     this.height = height;
     setupBoard();
-    this.stats = new BoardStats();
+    this.stats = new BoardStats(this);
   }
 
   private void setupBoard() {
@@ -83,16 +81,20 @@ public class Board {
     this.width = w;
   }
 
-  public int getWidth() {
-    return this.width;
-  }
-
   public void setHeight(int h) {
     this.height = h;
   }
 
+  public int getWidth() {
+    return this.width;
+  }
+
   public int getHeight() {
     return this.height;
+  }
+
+  public BoardStats getStats() {
+    return this.stats;
   }
 
 }
