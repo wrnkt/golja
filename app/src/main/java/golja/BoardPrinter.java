@@ -89,7 +89,7 @@ public class BoardPrinter
             clearTerm();
             printBoard(currentBoard);
             printBoardInfo(board);
-            boardManager.constructNextFrame(currentBoard, rule);
+            boardManager.update(currentBoard, rule);
             generation++;
             Thread.sleep(msDelay);
         }

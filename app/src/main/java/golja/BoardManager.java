@@ -27,22 +27,22 @@ public class BoardManager
         }
     };
 
-    public static Board constructNextFrame(Board originalBoard, AppliableRule rule)
+    public static Board update(Board board, AppliableRule rule)
     {
-        int numRows = originalBoard.getHeight();
-        int numColumns = originalBoard.getWidth();
+        int rows = board.getHeight();
+        int cols = board.getWidth();
 
-        Board nextBoard = new Board(numColumns, numRows);
+        Board tempBoard = new Board(cols, rows);
 
-        for(int row = 0; row < numRows; row++)
+        for(int row = 0; row < rows; row++)
         {
-            for(int col = 0; col < numColumns; col++)
+            for(int col = 0; col < cols; col++)
             {
-                nextBoard.at(col, row).setState(rule.apply(col, row, originalBoard));
+                tempBoard.at(col, row).setState(rule.apply(col, row, board));
             }
         }
-        originalBoard.update(nextBoard);
-        return nextBoard;
+        board.update(tempBoard);
+        return tempBoard;
     }
 
     public static int countAliveNeighbors(int col, int row, Board board)
