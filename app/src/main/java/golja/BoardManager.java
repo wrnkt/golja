@@ -47,20 +47,7 @@ public class BoardManager
 
     public static int countAliveNeighbors(int col, int row, Board board)
     {
-      int neighborCount = 0;
-
-      for(int r = (row - 1); r <= (row + 1); r++)
-      {
-          for(int c = (col - 1); c <= (col + 1); c++)
-          {
-              if( !board.contains(c, r) ) continue;
-
-              if( col == c && row == r ) continue;
-
-              if( board.at(c, r).isAlive() ) neighborCount++;
-          }
-      }
-      return neighborCount;
+      return board.neighborsWithState(col, row, State.ALIVE);
 
     }
 

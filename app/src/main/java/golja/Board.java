@@ -54,14 +54,25 @@ public class Board {
     if( !isCongruent(board) ) {
       return false;
     }
-    
     for(int y = 0; y < this.getHeight(); ++y) {
       for(int x = 0; x < this.getWidth(); ++x) {
         this.at(x, y).setState(board.at(x, y).getState());
       }
     }
-
     return true;
+  }
+
+  public int neighborsWithState(int x, int y, State state) {
+    int neighbors = 0;
+    
+    for(int ny = (y - 1); ny <= (y + 1); ++ny) {
+      for(int nx = (x - 1); nx <= (x + 1); ++nx) {
+        if( !this.contains(nx, ny) ) continue;
+        if( nx == x && ny == y ) continue;
+        if( state.equals(this.at(nx, ny).getState()) ) neighbors++;
+      }
+    }
+    return neighbors;
   }
 
   private boolean isCongruent(Board board) {
