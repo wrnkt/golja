@@ -2,10 +2,6 @@ package golja;
 
 import java.util.ArrayList;
 
-@FunctionalInterface
-interface CellOp {
-  void execute(Cell cell);
-}
 
 public class Board {
 

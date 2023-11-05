@@ -13,6 +13,13 @@ enum State
     }
 }
 
+
+@FunctionalInterface
+interface CellOp {
+  void execute(Cell cell);
+}
+
+
 public class Cell
 {
     private State state;
