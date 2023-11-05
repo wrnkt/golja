@@ -13,10 +13,7 @@ public class BoardPrinter
 
     private final static BoardManager boardManager = new BoardManager();
 
-    private static int aliveCells = 0;
-
     public static void printBoard(Board board) {
-        aliveCells = 0;
         for(int row = 0; row < board.getHeight(); row++)
         {
             for(int col = 0; col < board.getWidth(); col++)
@@ -24,7 +21,6 @@ public class BoardPrinter
                 if(board.at(col,row).isAlive())
                 {
                     System.out.print(aliveChar);
-                    aliveCells++;
                 }
                 else
                     System.out.print(deadChar);
@@ -36,7 +32,7 @@ public class BoardPrinter
 
     public static void printBoardInfo(Board board)
     {
-        System.out.println(String.format("%d/%d cells are alive.", aliveCells, (board.getHeight()*board.getWidth())));
+        System.out.println(String.format("%d/%d cells are alive.", board.getStats().aliveCells(), board.getStats().totalCells()));
     }
 
     public static void animateBoard(Board board) throws InterruptedException
@@ -59,7 +55,7 @@ public class BoardPrinter
         animateBoard(board, rule, msDelay, DEFAULT_MAX_GENERATIONS);
     }
 
-    public static void animateBoard(Board board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException, Exception
+    public static void animateBoard(Board board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException
     {
         int generation = 0;
         Board currentBoard = board;
