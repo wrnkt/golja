@@ -41,6 +41,7 @@ public class BoardManager
                 nextBoard.at(col, row).setState(rule.apply(col, row, originalBoard));
             }
         }
+        originalBoard.update(nextBoard);
         return nextBoard;
     }
 

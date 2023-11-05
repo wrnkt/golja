@@ -25,7 +25,7 @@ public class Cell
         this.state = state;
     }
 
-    private State getState() { return state; }
+    public State getState() { return state; }
 
     public void setState(State state) {
       this.state = state;

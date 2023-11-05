@@ -79,7 +79,7 @@ public class BoardPrinter
         animateBoard(board, rule, msDelay, DEFAULT_MAX_GENERATIONS);
     }
 
-    public static void animateBoard(Board board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException
+    public static void animateBoard(Board board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException, Exception
     {
         int generation = 0;
         Board currentBoard = board;
@@ -89,7 +89,7 @@ public class BoardPrinter
             clearTerm();
             printBoard(currentBoard);
             printBoardInfo(board);
-            currentBoard = boardManager.constructNextFrame(currentBoard, rule);
+            boardManager.constructNextFrame(currentBoard, rule);
             generation++;
             Thread.sleep(msDelay);
         }
