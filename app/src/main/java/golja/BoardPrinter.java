@@ -107,7 +107,7 @@ public class BoardPrinter
             clearTerm();
             printBoard(currentBoard);
             printInfo(board);
-            boardManager.update(currentBoard, rule);
+            BoardManager.update(currentBoard, rule);
             generation++;
             Thread.sleep(msDelay);
         }
@@ -120,7 +120,7 @@ public class BoardPrinter
     
     public static void main(String[] args)
     {
-        Board testBoard = boardManager.randomBoard(DEFAULT_COLS, DEFAULT_ROWS, boardManager.DEFAULT_LIFE_CHANCE);
+        Board testBoard = BoardManager.randomBoard(DEFAULT_COLS, DEFAULT_ROWS, BoardManager.DEFAULT_LIFE_CHANCE);
 
         try {
             animateBoard(testBoard);
