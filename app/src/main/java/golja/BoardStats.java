@@ -29,6 +29,10 @@ public class BoardStats
     return generation.incrementAndGet();
   }
 
+  public int generation() {
+    return generation.intValue();
+  }
+
   public int aliveCells() {
     return cellsWithState(State.ALIVE);
   }

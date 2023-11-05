@@ -40,13 +40,18 @@ public class BoardPrinter
           board.getStats().aliveCells(),
           board.getStats().totalCells()
       ));
+      System.out.println(
+        String.format(
+          "Generation: %d",
+          board.getStats().generation()
+      ));
     }
 
     public static void animateBoard(Board board) throws InterruptedException
     {
         animateBoard(
           board,
-          boardManager.DEFAULT_RULE,
+          BoardManager.DEFAULT_RULE,
           DEFAULT_MS_DELAY,
           DEFAULT_MAX_GENERATIONS
         );
@@ -72,7 +77,7 @@ public class BoardPrinter
     {
         animateBoard(
           board,
-          boardManager.DEFAULT_RULE,
+          BoardManager.DEFAULT_RULE,
           msDelay,
           DEFAULT_MAX_GENERATIONS
         );
