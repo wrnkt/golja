@@ -3,6 +3,13 @@ package golja;
 import java.util.ArrayList;
 
 
+
+@FunctionalInterface
+interface CellOp {
+  void execute(Cell cell);
+}
+
+
 public class Board {
 
   protected int DEFAULT_WIDTH = 50;
