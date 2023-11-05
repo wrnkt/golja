@@ -117,15 +117,5 @@ public class BoardPrinter
     {
         System.out.print("\033[H\033[2J");
     }
-    
-    public static void main(String[] args)
-    {
-        Board testBoard = BoardManager.randomBoard(DEFAULT_COLS, DEFAULT_ROWS, BoardManager.DEFAULT_LIFE_CHANCE);
 
-        try {
-            animateBoard(testBoard);
-        } catch(InterruptedException e) {
-            System.out.println("[LOG]: Board print failed.");
-        }
-    }
 }
