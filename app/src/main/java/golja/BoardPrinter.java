@@ -15,26 +15,6 @@ public class BoardPrinter
 
     private static int aliveCells = 0;
 
-    public static void printBoard(Cell[][] board)
-    {
-        aliveCells = 0;
-        for(int row = 0; row < board[0].length; row++)
-        {
-            for(int col = 0; col < board.length; col++)
-            {
-                if(board[col][row].isAlive())
-                {
-                    System.out.print(aliveChar);
-                    aliveCells++;
-                }
-                else
-                    System.out.print(deadChar);
-
-            }
-            System.out.println();
-        }
-    }
-
     public static void printBoard(Board board) {
         aliveCells = 0;
         for(int row = 0; row < board.getHeight(); row++)
