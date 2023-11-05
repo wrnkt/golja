@@ -1,6 +1,7 @@
 package golja;
 
+@FunctionalInterface
 public interface AppliableRule
 {
-    boolean apply(int col, int row, Cell[][] board);
+    State apply(int col, int row, Board board);
 }
