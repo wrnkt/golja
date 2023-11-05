@@ -1,8 +1,14 @@
 package golja;
 
 enum State {
+    OBSTACLE,
     ALIVE,
     DEAD;
+
+    public static final int size;
+    static {
+      size = values().length;
+    }
 }
 
 public class Cell
