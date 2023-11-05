@@ -18,12 +18,14 @@ public class Board {
   public Board() {
     this.width = DEFAULT_WIDTH;
     this.height = DEFAULT_HEIGHT;
+    setupBoard();
     this.stats = new BoardStats();
   }
 
   public Board(int width, int height) {
     this.width = width;
     this.height = height;
+    setupBoard();
     this.stats = new BoardStats();
   }
 
@@ -34,6 +36,18 @@ public class Board {
         this.board.get(i).add(new Cell());
       }
     }
+  }
+
+  public Cell at(int x, int y) {
+    return this.board.get(y).get(x);
+  }
+
+  public boolean contains(int x, int y) {
+    return (
+      ( (y >= 0) && (y < this.board.size()) )
+       &&
+      ( (x >= 0) && (x < this.board.get(y).size()) )
+    );
   }
 
   public void setWidth(int w) {
