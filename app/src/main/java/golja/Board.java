@@ -116,12 +116,6 @@ public class Board {
     setAll(State.ALIVE);
   }
 
-  public void setAll(State state) {
-    operateAll((cell) -> {
-      cell.setState(state);
-    });
-  }
-
   public void operateAll(CellOp op) {
     for(int y = 0; y < this.getHeight(); ++y) {
       for(int x = 0; x < this.getWidth(); ++x) {
@@ -129,6 +123,22 @@ public class Board {
       }
     }
     stats.update();
+  }
+
+  public void setAll(State state) {
+    operateAll((cell) -> {
+      cell.setState(state);
+    });
+  }
+
+  public void setCell(int x, int y, State state) {
+    operateCell(x, y, (cell) -> {
+      cell.setState(state);
+    });
+  }
+
+  public void operateCell(int x, int y, CellOp op) {
+    op.execute(this.at(x, y));
   }
 
   public void setWidth(int w) {
