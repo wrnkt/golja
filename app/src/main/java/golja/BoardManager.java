@@ -43,17 +43,6 @@ public class BoardManager
         return nextBoard;
     }
 
-    private static boolean isInBoard(int col, int row, Cell[][] board)
-    {
-        if(row < 0 || row >= board[0].length)
-            return false;
-
-        if(col < 0 || col >= board.length)
-            return false;
-
-        return true;
-    }
-
 
     public static int countAliveNeighbors(int col, int row, Board board)
     {
