@@ -9,10 +9,10 @@ public class BoardLoader
 {
     public static char[] aliveChars = {'1','x'};
 
-    public static Cell[][] loadFromFile(Path path) throws IOException
+    public static Board loadFromFile(Path path) throws IOException
     {
         int rows = 0;
-        int columns;
+        int columns = 0;
         if(Files.exists(path))
         {
             try(BufferedReader br = new BufferedReader(new FileReader(path.toString()))){
@@ -27,24 +27,23 @@ public class BoardLoader
                     else
                         rows++;
                 }
-                // System.out.println(fileContent.length());
 
                 columns = fileContent.length()/rows;
 
                 System.out.println(columns);
                 System.out.println(rows);
 
-                Cell[][] board = new Cell[columns][rows];
+                Board board = new Board(columns, rows);
                 int location = 0;
 
-                for(int row = 0; row < board[0].length; row++)
+                for(int row = 0; row < board.getHeight(); row++)
                 {
-                    for(int col = 0; col < board.length; col++)
+                    for(int col = 0; col < board.getWidth(); col++)
                     {
                         if(new String(aliveChars).indexOf(fileContent.charAt(location)) == -1)
-                            board[col][row] = new Cell(State.DEAD);
+                            board.at(col, row).setState(State.DEAD);
                         else
-                            board[col][row] = new Cell(State.ALIVE);
+                            board.at(col, row).setState(State.ALIVE);
 
                         location++;
                     }
@@ -58,18 +57,4 @@ public class BoardLoader
         }
     }
 
-    public static void animateFromPath(Path path)
-    {
-        try {
-            Cell[][] board = loadFromFile(path);
-            try {
-                BoardPrinter.animateBoard(board);
-
-            } catch(Exception e) {
-                System.out.println("Failed to animate board.");
-            }
-        } catch(IOException e) {
-            System.out.println("Couldn't load from path.");
-        }
-    }
 }

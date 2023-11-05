@@ -94,27 +94,6 @@ public final class CellStateGen {
       result.get(numEntries-1).high += remaining = used;
     }
 
-    /*
-    int i = 0;
-    Set<Object> weightSet = weightMap.keySet();
-    Iterator<Object> it = weightSet.iterator();
-    while (it.hasNext())
-    {
-      Object obj = (Object) it.next();
-
-      // do something
-      if( remaining > used ) {
-        RangeAssociation ra = result.stream()
-          .filter((association) -> association.o.equals(obj))
-          .findFirst().orElseGet(() -> result.get(i));
-        ra.
-
-      } else break;
-
-      if (!it.hasNext())
-        it = weightSet.iterator();
-    }
-    */
     return result;
   }
 
@@ -143,12 +122,12 @@ public final class CellStateGen {
         if( remaining > 0 ) {
           result.get(batchesProcessed-1).high += remaining;
         }
-        result.forEach((range) -> {
-          System.out.println("Range:");
-          System.out.println("\tlow = " + range.low);
-          System.out.println("\thigh = " + range.high);
-          System.out.println("\tobj = " + range.o.toString());
-        });
+        // result.forEach((range) -> {
+        //   System.out.println("Range:");
+        //   System.out.println("\tlow = " + range.low);
+        //   System.out.println("\thigh = " + range.high);
+        //   System.out.println("\tobj = " + range.o.toString());
+        // });
         break;
       }
     }

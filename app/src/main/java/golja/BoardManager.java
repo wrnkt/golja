@@ -6,83 +6,66 @@ import java.lang.Thread;
 
 public class BoardManager
 {
-    static int aliveCells = 0;
 
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
     static AppliableRule DEFAULT_RULE = (c, r, b) -> {
         int aliveNeighbors = countAliveNeighbors(c, r, b);
-        if(b[c][r].isAlive())
+        if(b.at(c, r).isAlive())
         {
             if(aliveNeighbors == 2 || aliveNeighbors == 3)
-                return true;
+                return State.ALIVE;
             else
-                return false;
+                return State.DEAD;
         }
         else
         {
             if(aliveNeighbors == 3)
-                return true;
+                return State.ALIVE;
             else
-                return false;
+                return State.DEAD;
         }
     };
 
-    public static Cell[][] constructNextFrame(Cell[][] originalBoard, AppliableRule rule)
+    public static Board constructNextFrame(Board originalBoard, AppliableRule rule)
     {
-        int numRows = originalBoard[0].length;
-        int numColumns = originalBoard.length;;
+        int numRows = originalBoard.getHeight();
+        int numColumns = originalBoard.getWidth();
 
-        Cell[][] nextBoard = new Cell[numColumns][numRows];
+        Board nextBoard = new Board(numColumns, numRows);
 
         for(int row = 0; row < numRows; row++)
         {
             for(int col = 0; col < numColumns; col++)
             {
-                nextBoard[col][row] = rule.apply(col, row, originalBoard) ?
-                    new Cell(State.ALIVE) : new Cell(State.DEAD);
+                nextBoard.at(col, row).setState(rule.apply(col, row, originalBoard));
             }
         }
         return nextBoard;
     }
 
-    private static boolean isInBoard(int col, int row, Cell[][] board)
+    public static int countAliveNeighbors(int col, int row, Board board)
     {
-        if(row < 0 || row >= board[0].length)
-            return false;
+      int neighborCount = 0;
 
-        if(col < 0 || col >= board.length)
-            return false;
+      for(int r = (row - 1); r <= (row + 1); r++)
+      {
+          for(int c = (col - 1); c <= (col + 1); c++)
+          {
+              if( !board.contains(c, r) ) continue;
 
-        return true;
+              if( col == c && row == r ) continue;
+
+              if( board.at(c, r).isAlive() ) neighborCount++;
+          }
+      }
+      return neighborCount;
+
     }
 
-    public static int countAliveNeighbors(int col, int row, Cell[][] board)
+    public static Board randomBoard(int columns, int rows, BooleanSupplier lifeChance)
     {
-        int neighborCount = 0;
-
-        for(int r = (row - 1); r <= (row + 1); r++)
-        {
-            for(int c = (col - 1); c <= (col + 1); c++)
-            {
-                if(!isInBoard(c, r, board))
-                   continue;
-
-                if(col == c && row == r)
-                   continue;
-
-                if(board[c][r].isAlive())
-                {
-                    neighborCount++;
-                }
-            }
-        }
-        return neighborCount;
-    }
-
-    public static Cell[][] randomBoard(int columns, int rows, BooleanSupplier lifeChance)
-    {
-        Cell[][] randomBoard = new Cell[columns][rows];
+        Board board = new Board(columns, rows);
 
         for(int r = 0; r < rows; r++)
         {
@@ -92,21 +75,21 @@ public class BoardManager
                     State.ALIVE :
                     State.DEAD;
 
-                randomBoard[c][r] = new Cell(state);
+                board.at(c, r).setState(state);
             }
         }
-        return randomBoard;
+        return board;
     }
 
-    public static Cell[][] deadBoard(int columns, int rows)
+    public static Board deadBoard(int columns, int rows)
     {
-        Cell[][] deadBoard = new Cell[columns][rows];
+        Board deadBoard = new Board(columns, rows);
 
         for(int r = 0; r < rows; r++)
         {
             for(int c = 0; c < columns; c++)
             {
-                deadBoard[c][r] = new Cell(State.DEAD);
+                deadBoard.at(c, r).setState(State.DEAD);
             }
         }
         return deadBoard;
