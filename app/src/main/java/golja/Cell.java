@@ -25,7 +25,9 @@ public class Cell
 
     private State getCellState() { return cellState; }
 
-    public void setCellState() {}
+    public void setCellState(State state) {
+      this.cellState = state;
+    }
 
     public boolean isAlive() {
         return getCellState() == State.ALIVE ? true : false;
