@@ -23,6 +23,8 @@ dependencies {
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:31.1-jre")
+    implementation("org.slf4j:slf4j-api:1.7.32")
+    implementation("ch.qos.logback:logback-classic:1.2.6")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
