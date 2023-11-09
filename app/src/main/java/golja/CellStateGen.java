@@ -3,6 +3,7 @@ package golja;
 import golja.util.RandomCollection;
 
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +23,18 @@ interface WeightedCellStateSupplier extends CellStateSupplier<Map<Double, State>
 }
 
 
-public final class CellStateGen {
+public final class CellStateGen
+{
+  public static final List<State> STANDARD_GAME_STATES = List.of(State.ALIVE, State.DEAD);
 
   public static final SpecifiedCellStateSupplier SPECIFIED_EVEN_PROB_SUPPLIER =
   (states) -> {
     return states.get(ThreadLocalRandom.current().nextInt(states.size()));
+  };
+
+  public static final Supplier<State> STANDARD_GAME_STATE_EVEN_SUPPLIER =
+  () -> {
+      return SPECIFIED_EVEN_PROB_SUPPLIER.get(STANDARD_GAME_STATES);
   };
 
   public static final WeightedCellStateSupplier WEIGHTED_PROB_SUPPLIER =
