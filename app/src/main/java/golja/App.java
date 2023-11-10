@@ -1,5 +1,7 @@
 package golja;
 
+import golja.ui.Golja;
+
 public class App {
     public static void main(String[] args) {
       Golja.main(args);
