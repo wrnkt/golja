@@ -27,7 +27,7 @@ public class GamePane extends HBox
 
     final NumberBinding binding = Bindings.min(widthProperty(), heightProperty());
 
-    grid.setMinSize(200, 200);
+    grid.setMinSize(600, 600);
 
     vBox.prefWidthProperty().bind(binding);
     vBox.prefHeightProperty().bind(binding);
@@ -36,18 +36,19 @@ public class GamePane extends HBox
     vBox.setFillWidth(true);
     vBox.setVgrow(grid, Priority.ALWAYS);
 
-    int cols = 10;
-    int rows = 10;
+    int cols = 50;
+    int rows = 50;
 
     applyGridColConstraints(grid, cols);
     applyGridRowConstraints(grid, rows);
 
     for(int x = 0; x < cols; ++x) {
       for(int y = 0; y < rows; ++y) {
-        Rectangle cell = new Rectangle();
-        cell.setWidth(5);
-        cell.setHeight(5);
-        cell.setFill(Color.AQUA);
+        // Rectangle cell = new Rectangle();
+        BoardCell cell = new BoardCell();
+        // cell.setWidth(5);
+        // cell.setHeight(5);
+        // cell.setFill(Color.AQUA);
         grid.add(cell, x, y);
         // grid.setRowIndex(cell, x);
         // grid.setColumnIndex(cell, y);
