@@ -1,12 +1,13 @@
 package golja.console;
 
-import golja.rule.Rules;
+import static golja.console.Util.clearTerm;
 
 import java.util.function.Consumer;
 
 import golja.Board;
 import golja.BoardManager;
 import golja.rule.AppliableRule;
+import golja.rule.Rules;
 
 public class BoardPrinter
 {
@@ -22,21 +23,16 @@ public class BoardPrinter
 
     public static void printBoard(Board board)
     {
-        for(int row = 0; row < board.getHeight(); row++)
-        {
-            for(int col = 0; col < board.getWidth(); col++)
-            {
+        for(int row = 0; row < board.getHeight(); row++) {
+            for(int col = 0; col < board.getWidth(); col++) {
                 if(board.at(col,row).isAlive())
-                {
                     System.out.print(aliveChar);
-                }
                 else
                     System.out.print(deadChar);
             }
             System.out.println();
         }
     }
-
 
     public static void printInfo(Board board)
     {
@@ -53,56 +49,6 @@ public class BoardPrinter
       ));
     }
 
-    public static void animateBoard(Board board) throws InterruptedException
-    {
-        animateBoard(
-          board,
-          Rules.DEFAULT_RULE,
-          DEFAULT_MS_DELAY,
-          DEFAULT_MAX_GENERATIONS
-        );
-    }
-
-    public static void animateBoard(
-      Board board,
-      AppliableRule rule
-    ) throws InterruptedException
-    {
-        animateBoard(
-          board,
-          rule,
-          DEFAULT_MS_DELAY,
-          DEFAULT_MAX_GENERATIONS
-        );
-    }
-
-    public static void animateBoard(
-      Board board,
-      int msDelay
-    ) throws InterruptedException
-    {
-        animateBoard(
-          board,
-          Rules.DEFAULT_RULE,
-          msDelay,
-          DEFAULT_MAX_GENERATIONS
-        );
-    }
-
-    public static void animateBoard(
-      Board board,
-      AppliableRule rule,
-      int msDelay
-    ) throws InterruptedException
-    {
-        animateBoard(
-          board,
-          rule,
-          msDelay,
-          DEFAULT_MAX_GENERATIONS
-        );
-    }
-
     public static Consumer<Board> printBoardWithInfo = (board) -> {
       clearTerm();
       printBoard(board);
@@ -114,25 +60,32 @@ public class BoardPrinter
       printBoard(board);
     };
 
-    public static void animateBoard(
-      Board board,
-      AppliableRule rule,
-      int msDelay,
-      int maxGenerations
-    ) throws InterruptedException
+
+    public static void animateBoard(Board board) throws InterruptedException
     {
-        BoardManager.updateBoard(
-          board,
-          rule,
-          msDelay,
-          maxGenerations,
-          BoardPrinter.printBoardWithInfo
-        );
+        animateBoard(board, Rules.DEFAULT_RULE, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
     }
 
-    public static void clearTerm()
+    public static void animateBoard(Board board, AppliableRule rule) throws InterruptedException
     {
-        System.out.print("\033[H\033[2J");
+        animateBoard(board, rule, DEFAULT_MS_DELAY, DEFAULT_MAX_GENERATIONS);
+    }
+
+    public static void animateBoard(Board board, int msDelay) throws InterruptedException
+    {
+        animateBoard(board, Rules.DEFAULT_RULE, msDelay, DEFAULT_MAX_GENERATIONS);
+    }
+
+    public static void animateBoard(Board board, AppliableRule rule, int msDelay) throws InterruptedException
+    {
+        animateBoard(board, rule, msDelay, DEFAULT_MAX_GENERATIONS);
+    }
+
+    public static void animateBoard(Board board, AppliableRule rule, int msDelay, int maxGenerations) throws InterruptedException
+    {
+      BoardManager.updateBoard(board, rule, msDelay, maxGenerations,
+        BoardPrinter.printBoardWithInfo
+      );
     }
 
 }

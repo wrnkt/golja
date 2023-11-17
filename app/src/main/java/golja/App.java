@@ -1,11 +1,11 @@
 package golja;
 
+import golja.console.BoardPrinter;
 import golja.ui.Golja;
 
 public class App {
     public static void main(String[] args) {
-      Golja.main(args);
-    /*
+      //Golja.main(args);
       try
       {
           BoardPrinter.animateBoard(
@@ -19,6 +19,5 @@ public class App {
       {
           System.out.println("Failed to animate");
       }
-    */
     }
 }
