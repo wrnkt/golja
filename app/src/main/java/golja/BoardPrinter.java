@@ -1,6 +1,9 @@
 package golja;
 
 import golja.rule.Rules;
+
+import java.util.function.Consumer;
+
 import golja.rule.AppliableRule;
 
 public class BoardPrinter
@@ -15,7 +18,8 @@ public class BoardPrinter
     private static char deadChar = '.';
 
 
-    public static void printBoard(Board board) {
+    public static void printBoard(Board board)
+    {
         for(int row = 0; row < board.getHeight(); row++)
         {
             for(int col = 0; col < board.getWidth(); col++)
@@ -26,7 +30,6 @@ public class BoardPrinter
                 }
                 else
                     System.out.print(deadChar);
-
             }
             System.out.println();
         }
@@ -98,6 +101,17 @@ public class BoardPrinter
         );
     }
 
+    public static Consumer<Board> printBoardWithInfo = (board) -> {
+      clearTerm();
+      printBoard(board);
+      printInfo(board);
+    };
+
+    public static Consumer<Board> printBoard = (board) -> {
+      clearTerm();
+      printBoard(board);
+    };
+
     public static void animateBoard(
       Board board,
       AppliableRule rule,
@@ -105,18 +119,13 @@ public class BoardPrinter
       int maxGenerations
     ) throws InterruptedException
     {
-        int generation = 0;
-        Board currentBoard = board;
-
-        while(generation < maxGenerations)
-        {
-            clearTerm();
-            printBoard(currentBoard);
-            printInfo(currentBoard);
-            currentBoard.update(rule);
-            generation++;
-            Thread.sleep(msDelay);
-        }
+        BoardManager.updateBoard(
+          board,
+          rule,
+          msDelay,
+          maxGenerations,
+          BoardPrinter.printBoardWithInfo
+        );
     }
 
 
