@@ -3,6 +3,7 @@ package golja.model.board;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+import golja.util.Copy;
 
 import golja.model.cell.State;
 
@@ -19,6 +20,14 @@ public class BoardStats
     this.totalCells = new AtomicInteger(0);
     this.board = board;
     this.statMap = new HashMap<State, AtomicInteger>();
+    update();
+  }
+
+  public BoardStats(BoardStats stats) {
+    this.totalCells = new AtomicInteger(stats.totalCells());
+    this.generation = new AtomicInteger(stats.generation());
+    this.board = stats.getBoard();
+    this.statMap = Copy.deepCopyMap(stats.getStatMap(), State.class, AtomicInteger.class);
     update();
   }
 
@@ -53,6 +62,14 @@ public class BoardStats
   public int totalCells() {
     totalCells = new AtomicInteger(board.getWidth() * this.board.getHeight());
     return totalCells.intValue();
+  }
+
+  public Board getBoard() {
+    return this.board;
+  }
+
+  public Map<State, AtomicInteger> getStatMap() {
+    return this.statMap;
   }
 
 }
