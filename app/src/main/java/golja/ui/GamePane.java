@@ -1,5 +1,6 @@
 package golja.ui;
 
+import golja.ui.config.Theme;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.Pos;
@@ -34,26 +35,30 @@ public class GamePane extends HBox
     }
   }
 
-  public GamePane()
+  private void setupVBox(VBox vBox, GridPane grid)
   {
-    final VBox vBox = new VBox();
-
     vBox.alignmentProperty().set(Pos.CENTER);
-    alignmentProperty().set(Pos.CENTER);
-
-    final GridPane grid = new GridPane();
-    setupGrid(grid, 600, 600, 50, 50);
 
     final NumberBinding binding = Bindings.min(widthProperty(), heightProperty());
-
     vBox.prefWidthProperty().bind(binding);
     vBox.prefHeightProperty().bind(binding);
-    vBox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
 
+    vBox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
     vBox.setFillWidth(true);
     vBox.setVgrow(grid, Priority.ALWAYS);
 
     vBox.getChildren().add(grid);
+  }
+
+  public GamePane()
+  {
+    final VBox vBox = new VBox();
+    final GridPane grid = new GridPane();
+
+    setupGrid(grid, 600, 600, 50, 50);
+    setupVBox(vBox, grid);
+
+    alignmentProperty().set(Pos.CENTER);
     getChildren().add(vBox);
 
   }
