@@ -8,12 +8,28 @@ import java.util.List;
 
 public class BoardManager
 {
-
     static final BooleanSupplier DEFAULT_LIFE_CHANCE = () -> Math.random() > 0.7;
 
-    public static void update(Board board, AppliableRule rule)
-    {
-        board.update(rule);
+    public static void updateBoard(
+      Board board,
+      AppliableRule rule,
+      int msDelay,
+      int maxGenerations,
+      Consumer<Board> callback
+    ) throws InterruptedException {
+        int generation = 0;
+
+        // NOTE: Implement deep copy of board
+        Board currentBoard = board;
+
+        while(generation < maxGenerations)
+        {
+            callback.accept(currentBoard);
+            currentBoard.update(rule);
+            generation++;
+            Thread.sleep(msDelay);
+        }
+
     }
 
     public static Board constructStandardBoard(int cols, int rows) {

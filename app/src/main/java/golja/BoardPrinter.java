@@ -112,12 +112,13 @@ public class BoardPrinter
         {
             clearTerm();
             printBoard(currentBoard);
-            printInfo(board);
-            BoardManager.update(currentBoard, rule);
+            printInfo(currentBoard);
+            currentBoard.update(rule);
             generation++;
             Thread.sleep(msDelay);
         }
     }
+
 
     public static void clearTerm()
     {
