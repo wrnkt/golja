@@ -12,6 +12,10 @@ public class Cell
         this.state = state;
     }
 
+    public Cell(Cell cell) {
+      this(cell.getState());
+    }
+
     public State getState() { return state; }
 
     public void setState(State state) {
