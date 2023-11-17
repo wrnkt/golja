@@ -10,11 +10,30 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class GamePane extends HBox
 {
+  private void setupGrid(
+    GridPane grid,
+    final int minX,
+    final int minY,
+    final int cols,
+    final int rows
+  ) {
+    grid.setStyle("-fx-background-color:red");
+    grid.setMinSize(minX, minY);
+
+    applyGridColConstraints(grid, cols);
+    applyGridRowConstraints(grid, rows);
+
+    for(int x = 0; x < cols; ++x) {
+      for(int y = 0; y < rows; ++y) {
+        BoardCell cell = new BoardCell();
+        grid.add(cell, x, y);
+      }
+    }
+  }
+
   public GamePane()
   {
     final VBox vBox = new VBox();
@@ -23,11 +42,9 @@ public class GamePane extends HBox
     alignmentProperty().set(Pos.CENTER);
 
     final GridPane grid = new GridPane();
-    grid.setStyle("-fx-background-color:red");
+    setupGrid(grid, 600, 600, 50, 50);
 
     final NumberBinding binding = Bindings.min(widthProperty(), heightProperty());
-
-    grid.setMinSize(600, 600);
 
     vBox.prefWidthProperty().bind(binding);
     vBox.prefHeightProperty().bind(binding);
@@ -35,25 +52,6 @@ public class GamePane extends HBox
 
     vBox.setFillWidth(true);
     vBox.setVgrow(grid, Priority.ALWAYS);
-
-    int cols = 50;
-    int rows = 50;
-
-    applyGridColConstraints(grid, cols);
-    applyGridRowConstraints(grid, rows);
-
-    for(int x = 0; x < cols; ++x) {
-      for(int y = 0; y < rows; ++y) {
-        // Rectangle cell = new Rectangle();
-        BoardCell cell = new BoardCell();
-        // cell.setWidth(5);
-        // cell.setHeight(5);
-        // cell.setFill(Color.AQUA);
-        grid.add(cell, x, y);
-        // grid.setRowIndex(cell, x);
-        // grid.setColumnIndex(cell, y);
-      }
-    }
 
     vBox.getChildren().add(grid);
     getChildren().add(vBox);
