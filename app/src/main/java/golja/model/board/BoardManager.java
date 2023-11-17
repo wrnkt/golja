@@ -22,13 +22,12 @@ public class BoardManager
     ) throws InterruptedException {
         int generation = 0;
 
-        // NOTE: Implement deep copy of board
-        Board currentBoard = board;
+        Board curBoard = new Board(board);
 
         while(generation < maxGenerations)
         {
-            callback.accept(currentBoard);
-            currentBoard.update(rule);
+            callback.accept(curBoard);
+            curBoard.update(rule);
             generation++;
             Thread.sleep(msDelay);
         }
