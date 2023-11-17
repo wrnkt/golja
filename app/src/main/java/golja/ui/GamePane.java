@@ -14,6 +14,36 @@ import javafx.scene.layout.VBox;
 
 public class GamePane extends HBox
 {
+
+  public GamePane()
+  {
+    final VBox vBox = new VBox();
+
+    final GridPane grid = new GridPane();
+
+    setupGrid(grid, 600, 600, 50, 50);
+    setupVBox(vBox, grid);
+
+    alignmentProperty().set(Pos.CENTER);
+    getChildren().add(vBox);
+
+  }
+
+  private void setupVBox(VBox vBox, GridPane grid)
+  {
+    vBox.alignmentProperty().set(Pos.CENTER);
+
+    final NumberBinding binding = Bindings.min(widthProperty(), heightProperty());
+    vBox.prefWidthProperty().bind(binding);
+    vBox.prefHeightProperty().bind(binding);
+
+    vBox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
+    vBox.setFillWidth(true);
+    vBox.setVgrow(grid, Priority.ALWAYS);
+
+    vBox.getChildren().add(grid);
+  }
+
   private void setupGrid(
     GridPane grid,
     final int minX,
@@ -33,34 +63,6 @@ public class GamePane extends HBox
         grid.add(cell, x, y);
       }
     }
-  }
-
-  private void setupVBox(VBox vBox, GridPane grid)
-  {
-    vBox.alignmentProperty().set(Pos.CENTER);
-
-    final NumberBinding binding = Bindings.min(widthProperty(), heightProperty());
-    vBox.prefWidthProperty().bind(binding);
-    vBox.prefHeightProperty().bind(binding);
-
-    vBox.setMaxSize(Control.USE_PREF_SIZE, Control.USE_PREF_SIZE);
-    vBox.setFillWidth(true);
-    vBox.setVgrow(grid, Priority.ALWAYS);
-
-    vBox.getChildren().add(grid);
-  }
-
-  public GamePane()
-  {
-    final VBox vBox = new VBox();
-    final GridPane grid = new GridPane();
-
-    setupGrid(grid, 600, 600, 50, 50);
-    setupVBox(vBox, grid);
-
-    alignmentProperty().set(Pos.CENTER);
-    getChildren().add(vBox);
-
   }
 
   private void applyGridColConstraints(final GridPane grid, final int cols)
