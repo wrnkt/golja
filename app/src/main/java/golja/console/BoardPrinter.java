@@ -1,9 +1,11 @@
-package golja;
+package golja.console;
 
 import golja.rule.Rules;
 
 import java.util.function.Consumer;
 
+import golja.Board;
+import golja.BoardManager;
 import golja.rule.AppliableRule;
 
 public class BoardPrinter
@@ -127,7 +129,6 @@ public class BoardPrinter
           BoardPrinter.printBoardWithInfo
         );
     }
-
 
     public static void clearTerm()
     {
