@@ -1,7 +1,7 @@
 package golja;
 
 import golja.console.BoardPrinter;
-import golja.ui.Golja;
+import golja.model.board.BoardManager;
 
 public class App {
     public static void main(String[] args) {

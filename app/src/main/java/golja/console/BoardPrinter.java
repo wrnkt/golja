@@ -4,8 +4,8 @@ import static golja.console.Util.clearTerm;
 
 import java.util.function.Consumer;
 
-import golja.Board;
-import golja.BoardManager;
+import golja.model.board.Board;
+import golja.model.board.BoardManager;
 import golja.rule.AppliableRule;
 import golja.rule.Rules;
 

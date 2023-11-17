@@ -1,5 +1,8 @@
-package golja;
+package golja.model.board;
 
+import golja.model.cell.CellStateGen;
+import golja.model.cell.State;
+import golja.model.cell.SpecifiedCellStateSupplier;
 import golja.rule.*;
 
 import java.util.function.*;

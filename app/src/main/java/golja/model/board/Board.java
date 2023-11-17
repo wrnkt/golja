@@ -1,14 +1,11 @@
-package golja;
+package golja.model.board;
 
 import golja.rule.*;
+import golja.model.cell.Cell;
+import golja.model.cell.CellOp;
+import golja.model.cell.State;
+
 import java.util.ArrayList;
-
-
-
-@FunctionalInterface
-interface CellOp {
-  void execute(Cell cell);
-}
 
 
 public class Board {

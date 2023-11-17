@@ -1,7 +1,7 @@
 package golja.rule;
 
-import golja.State;
-import golja.Board;
+import golja.model.board.Board;
+import golja.model.cell.State;
 
 @FunctionalInterface
 public interface AppliableRule

@@ -1,8 +1,10 @@
-package golja;
+package golja.model.board;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import golja.model.cell.State;
 
 
 public class BoardStats

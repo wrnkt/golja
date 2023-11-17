@@ -1,4 +1,4 @@
-package golja;
+package golja.model.cell;
 
 public class Cell
 {
