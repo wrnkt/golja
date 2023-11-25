@@ -26,10 +26,17 @@ dependencies {
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
-    // This dependency is used by the application.
+    // application dependencies
     implementation("com.google.guava:guava:31.1-jre")
-    implementation("org.slf4j:slf4j-api:1.7.32")
+
+    // logging
     implementation("ch.qos.logback:logback-classic:1.2.6")
+    implementation("org.slf4j:slf4j-api:1.7.32")
+
+    // console
+    implementation("org.jline:jline:3.24.1")
+
+    // gui
     implementation("io.github.palexdev:materialfx:11.17.0")
 }
 
