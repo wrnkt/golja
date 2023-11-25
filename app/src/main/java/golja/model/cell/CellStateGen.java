@@ -1,27 +1,11 @@
-package golja;
+package golja.model.cell;
 
-import golja.util.RandomCollection;
-
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Supplier;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
 
-
-interface CellStateSupplier<T> {
-  State get(T t);
-}
-
-@FunctionalInterface
-interface SpecifiedCellStateSupplier extends CellStateSupplier<List<State>> {
-  State get(List<State> states);
-}
-
-@FunctionalInterface
-interface WeightedCellStateSupplier extends CellStateSupplier<Map<Double, State>> {
-  State get(Map<Double, State> m);
-}
-
+import golja.util.RandomCollection;
 
 public final class CellStateGen
 {

@@ -1,4 +1,4 @@
-package golja;
+package golja.model.cell;
 
 public class Cell
 {
@@ -10,6 +10,10 @@ public class Cell
 
     public Cell(State state) {
         this.state = state;
+    }
+
+    public Cell(Cell cell) {
+      this(cell.getState());
     }
 
     public State getState() { return state; }

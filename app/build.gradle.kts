@@ -8,6 +8,11 @@
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+    id("org.openjfx.javafxplugin") version "0.1.0"
+}
+
+javafx {
+    modules("javafx.controls")
 }
 
 repositories {
@@ -25,6 +30,7 @@ dependencies {
     implementation("com.google.guava:guava:31.1-jre")
     implementation("org.slf4j:slf4j-api:1.7.32")
     implementation("ch.qos.logback:logback-classic:1.2.6")
+    implementation("io.github.palexdev:materialfx:11.17.0")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

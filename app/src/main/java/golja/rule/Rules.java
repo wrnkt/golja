@@ -1,7 +1,6 @@
 package golja.rule;
 
-import golja.State;
-
+import golja.model.cell.State;
 
 public final class Rules {
 

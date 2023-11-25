@@ -1,20 +1,19 @@
-package golja;
+package golja.model.board;
 
 import golja.rule.*;
+import golja.util.Copy;
+import golja.model.cell.Cell;
+import golja.model.cell.CellOp;
+import golja.model.cell.State;
+
 import java.util.ArrayList;
-
-
-
-@FunctionalInterface
-interface CellOp {
-  void execute(Cell cell);
-}
+import java.util.stream.Collectors;
 
 
 public class Board {
 
-  protected int DEFAULT_WIDTH = 50;
-  protected int DEFAULT_HEIGHT = 50;
+  protected static int DEFAULT_WIDTH = 50;
+  protected static int DEFAULT_HEIGHT = 50;
 
   private int width = 0;
   private int height = 0;
@@ -39,6 +38,16 @@ public class Board {
   public Board(int width, int height, State state) {
     this(width, height);
     setAll(state);
+  }
+
+  public Board(Board board) {
+    this.width = board.getWidth();
+    this.height = board.getHeight();
+    this.board = new ArrayList<>(board.getBoard().stream()
+                      .map(innerList -> Copy.deepCopyUsingCopyConstructor(innerList))
+                      .collect(Collectors.toList()));
+    setupBoard();
+    this.stats = new BoardStats(this);
   }
 
   private void setupBoard() {
@@ -160,6 +169,10 @@ public class Board {
 
   public BoardStats getStats() {
     return this.stats;
+  }
+
+  public ArrayList<ArrayList<Cell>> getBoard() {
+    return this.board;
   }
 
 }
