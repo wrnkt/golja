@@ -4,6 +4,8 @@ import golja.model.cell.CellStateGen;
 import golja.model.cell.State;
 import golja.model.cell.SpecifiedCellStateSupplier;
 import golja.rule.*;
+import golja.ui.GamePane;
+import javafx.scene.layout.Pane;
 
 import java.util.function.*;
 import java.util.List;
@@ -26,6 +28,29 @@ public class BoardManager
         while(generation < maxGenerations)
         {
             callback.accept(curBoard);
+            curBoard.update(rule);
+            generation++;
+            Thread.sleep(msDelay);
+        }
+
+    }
+
+    public static void updateBoard(
+      Board board,
+      GamePane gamePane,
+      AppliableRule rule,
+      int msDelay,
+      int maxGenerations,
+      BiConsumer<Board, GamePane> callback
+    ) throws InterruptedException {
+
+        int generation = 0;
+
+        Board curBoard = new Board(board);
+
+        while(generation < maxGenerations)
+        {
+            callback.accept(curBoard, gamePane);
             curBoard.update(rule);
             generation++;
             Thread.sleep(msDelay);
