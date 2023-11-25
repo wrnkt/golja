@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import golja.model.cell.CellStateGen;
+import golja.model.cell.State;
+
 public class CellStateGenTest {
 
   //@Test
