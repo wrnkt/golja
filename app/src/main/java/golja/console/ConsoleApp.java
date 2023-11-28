@@ -16,11 +16,13 @@ public class ConsoleApp
     public static String availableRules()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("Rules:\n");
+        sb.append("Rules:\n\n");
+        int num = 1;
         for (Rule r : Rules.AVAILABLE_RULES) {
-            sb.append(r.title());
+            sb.append((num++) + ": " + r.title());
             sb.append("\n");
             sb.append(r.description());
+            sb.append("\n\n");
         }
         return sb.toString();
     }
