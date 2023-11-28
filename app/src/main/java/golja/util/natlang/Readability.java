@@ -1,4 +1,4 @@
-package golja.console;
+package golja.util.natlang;
 
 import java.util.List;
 
