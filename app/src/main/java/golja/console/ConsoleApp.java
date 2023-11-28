@@ -1,6 +1,9 @@
 package golja.console;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -27,6 +30,42 @@ public class ConsoleApp
         return sb.toString();
     }
 
+    public static void closeOut(Terminal term) {
+        try {
+            term.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public static Rule pickRule(Terminal term) {
+        List<String> ruleInputs = Rules.AVAILABLE_RULES.stream().map((rule) -> rule.title()).toList();
+        List<String> ruleInputsNum = IntStream.range(1, Rules.AVAILABLE_RULES.size() + 1)
+                                        .boxed().map((i) -> i.toString()).toList();
+        System.out.println("Pick a rule from the list (select by typing number). Selecting nothing will select the default.");
+        System.out.println(availableRules());
+        LineReader reader = LineReaderBuilder.builder()
+                                .terminal(term)
+                                .completer(new StringsCompleter(ruleInputsNum))
+                                .build();
+        while(true)
+        {
+            String line = reader.readLine("> ");
+            if (line == null) {
+                return Rules.AVAILABLE_RULES.get(0);
+            };
+            if (line.equalsIgnoreCase("exit")) {
+                closeOut(term);
+            }
+            for(String num : ruleInputsNum) {
+                if(num.equals(line)) {
+                    return Rules.AVAILABLE_RULES.get(Integer.parseInt(num));
+                }
+            }
+            reader.getHistory().add(line);
+        }
+    }
+
     public static String introduce()
     {
         StringBuilder sb = new StringBuilder();
@@ -48,8 +87,8 @@ public class ConsoleApp
             if (line == null || line.equalsIgnoreCase("exit")) break;
             reader.getHistory().add(line);
             System.out.println(introduce());
-            System.out.println(availableRules());
-            //System.out.println("Input was: \"" + line + "\"");
+            //System.out.println(availableRules());
+            pickRule(term);
         }
 
         term.close();
