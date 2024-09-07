@@ -9,7 +9,6 @@ build
 
 # Ignore Gradle wrapper .jar and .bat
 gradle-wrapper.jar
-gradlew*
 
 # Ignore Eclipse settings and .project file
 .project
